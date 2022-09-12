@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('content');
-            $table->enum('types', ['numeric', 'select', 'text']);
+            $table->enum('type', ['A', 'B', 'C']);
+            $table->json('options')->nullable();
             $table->timestamps();
         });
     }

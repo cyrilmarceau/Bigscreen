@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
             $table->uuid('slug')->unique();
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
