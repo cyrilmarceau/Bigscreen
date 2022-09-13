@@ -15,8 +15,11 @@ class Surveyed extends Model
 
     public static function getAll() {
 
-        $surveyeds = Surveyed::with(['answers'])->get();
+        return Surveyed::with(['answers'])->get();
+    }
 
-        return $surveyeds;
+    public static function get($slug) {
+
+        return Surveyed::with(['answers'])->where('slug', $slug)->first();
     }
 }

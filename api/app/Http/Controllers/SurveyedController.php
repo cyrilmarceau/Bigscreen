@@ -48,9 +48,14 @@ class SurveyedController extends Controller
      * @param  \App\Models\Surveyed  $survey
      * @return \Illuminate\Http\Response
      */
-    public function show(Surveyed $surveyed)
+    public function show($slug)
     {
-        //
+
+        $surveyed = Surveyed::get($slug);
+
+        $message = empty($surveyed) ? "Aucun sondé n'a été trouvé" : "Sondé récupéré avec succès";
+
+        return $this->sendResponse($surveyed, $message);
     }
 
     /**
