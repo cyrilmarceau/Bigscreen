@@ -14,7 +14,11 @@ class SurveyedController extends Controller
      */
     public function index()
     {
-        //
+        $surveyeds = Surveyed::getAll();
+
+        $message = $surveyeds->isEmpty() ? "Aucun sondé n'a été trouvé" : "Liste des sondés récupérés avec succès";
+
+        return $this->sendResponse($surveyeds, $message);
     }
 
     /**

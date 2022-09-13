@@ -12,4 +12,11 @@ class Surveyed extends Model
     public function answers() {
         return $this->hasMany(Answer::class);
     }
+
+    public static function getAll() {
+
+        $surveyeds = Surveyed::with(['answers'])->get();
+
+        return $surveyeds;
+    }
 }
