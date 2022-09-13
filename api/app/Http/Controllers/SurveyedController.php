@@ -51,7 +51,7 @@ class SurveyedController extends Controller
     public function show($slug)
     {
 
-        $surveyed = Surveyed::get($slug);
+        $surveyed = Surveyed::getBySlug($slug);
 
         $message = empty($surveyed) ? "Aucun sondé n'a été trouvé" : "Sondé récupéré avec succès";
 
