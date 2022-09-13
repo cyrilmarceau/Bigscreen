@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
-class QuestionController extends Controller
+class AdminQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
