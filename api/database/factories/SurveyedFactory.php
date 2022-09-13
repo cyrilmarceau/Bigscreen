@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Survey>
  */
-class SurveyFactory extends Factory
+class SurveyedFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,8 @@ class SurveyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'slug' => fake()->uuid(),
+            'email' => fake()->freeEmail()
         ];
     }
 }

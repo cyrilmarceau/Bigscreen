@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Survey;
+use App\Models\Surveyed;
 use Illuminate\Http\Request;
 
-class SurveyController extends Controller
+class SurveyedController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class SurveyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Surveyed  $survey
      * @return \Illuminate\Http\Response
      */
-    public function show(Survey $survey)
+    public function show(Surveyed $surveyed)
     {
         //
     }
@@ -52,10 +52,10 @@ class SurveyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Surveyed  $survey
      * @return \Illuminate\Http\Response
      */
-    public function edit(Survey $survey)
+    public function edit(Surveyed $surveyed)
     {
         //
     }
@@ -64,10 +64,10 @@ class SurveyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Surveyed  $survey
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Survey $survey)
+    public function update(Request $request, Surveyed $surveyed)
     {
         //
     }
@@ -75,10 +75,10 @@ class SurveyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Surveyed  $survey
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Survey $survey)
+    public function destroy(Surveyed $surveyed)
     {
         //
     }
