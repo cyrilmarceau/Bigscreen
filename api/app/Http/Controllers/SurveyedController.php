@@ -14,7 +14,7 @@ class SurveyedController extends Controller
      */
     public function index()
     {
-        $surveyeds = Surveyed::getAll();
+        $surveyeds = Surveyed::getAllWithRelation(['answers']);
 
         $message = $surveyeds->isEmpty() ? "Aucun sondé n'a été trouvé" : "Liste des sondés récupérés avec succès";
 
