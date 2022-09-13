@@ -14,6 +14,6 @@ class SurveySeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }
