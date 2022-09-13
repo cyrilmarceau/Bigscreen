@@ -14,7 +14,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::getAll();
+        $questions = Question::getAllWithExcludedColumns(['options']);
 
         $message = $questions->isEmpty() ? "Aucune question n'a été trouvé" : "Liste des questions récupérer avec succès";
 

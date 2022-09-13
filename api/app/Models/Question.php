@@ -27,12 +27,19 @@ class Question extends Model
     /**
      * getAll
      * return a list of questions
-     * @return void
+     * @return object
      */
     public static function getAll()
     {
         $questions = Question::all();
+        return $questions;
+    }
 
+    public static function getAllWithExcludedColumns(array $columnToExclude)
+    {
+        $datas = self::getAll();
+
+        $questions = $datas->makeHidden($columnToExclude);
         return $questions;
     }
 }
