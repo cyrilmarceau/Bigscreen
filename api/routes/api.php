@@ -27,5 +27,14 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 
+Route::middleware(['auth:sanctum'])->group( function () {
+
+    Route::controller(AuthController::class)->group(function(){
+        Route::post('logout', 'logout');
+    });
+});
+
+
+
 Route::apiResource('questions', QuestionController::class);
 Route::apiResource('surveyeds', SurveyedController::class);

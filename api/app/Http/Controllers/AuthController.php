@@ -30,4 +30,25 @@ class AuthController extends Controller
             return $this->sendError('Identifiant incorrect', ['error' => 'unauthorised']);
         } 
     }
+
+    /**
+     * Logout
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+
+        $isTokenDelete = $request->user()->tokens()->delete();
+
+        if($isTokenDelete){
+            $result = ['data' => null];
+
+            return $this->sendResponse($result, 'Utilisateur déconnecté');
+        } else {
+            return $this->sendError('Problème lors de la déconnexion.', null);
+        }
+
+
+    }
 }
