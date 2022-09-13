@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,10 +14,31 @@ class Surveyed extends Model
         return $this->hasMany(Answer::class);
     }
 
-    public static function getAll() {
-
-        $surveyeds = Surveyed::with(['answers'])->get();
-
+        
+    /**
+     * getAll
+     * Get all Surveyed
+     * @return object
+     */
+    public static function getAll(): object
+    {
+        $surveyeds = Surveyed::all();
+        
         return $surveyeds;
+    }
+    
+    /**
+     * getAllWithRelation
+     * Get all surveyeds and his relationship
+     * @param  mixed $relationships
+     * @return void
+     */
+    public static function getAllWithRelation(array $relationships)
+    {
+        $surveyeds = self::getAll();
+
+        $surveyedsWithRelations = $surveyeds->toQuery()->with($relationships)->get();
+
+        return $surveyedsWithRelations;
     }
 }
