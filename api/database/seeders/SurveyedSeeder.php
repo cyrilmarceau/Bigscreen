@@ -25,7 +25,7 @@ class SurveyedSeeder extends Seeder
 
                 $relationship = [
                     'question_id' => $question->id,
-                    'survey_id' => $survey->id
+                    'surveyed_id' => $survey->id
                 ];
 
                 switch ($question->type) {

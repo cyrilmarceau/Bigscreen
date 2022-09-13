@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('question_id');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->unsignedBigInteger('survey_id');
-            $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('cascade');
+            $table->unsignedBigInteger('surveyed_id');
+            $table->foreign('surveyed_id')->references('id')->on('surveyeds')->onDelete('cascade');
             $table->string('content', 255);
             $table->timestamps();
         });
