@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd';
+import { Row, Col, Button, Form, Input } from 'antd';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -11,18 +11,19 @@ const Login = () => {
 
     return ( 
         <>
-            <section className='page-container'>
-                
-                <div className="login-form-container">
+            <div className="page-container">
 
-                    <div className="login-form">
+                <Row justify="center" align="middle" className="login-form-container">
 
-                        <h1 className="login-form-title">Big screen</h1>
+                    <Col xs={24} sm={16} lg={8} justify="center" align="middle" className="login-form-card">
+
+                        <h1 className="login-form-title">Big Screen</h1>
+
+                        <p class="login-form-paragraph">Me connecter</p>
 
                         <Form
                             className="login-form-fields-group"
                             name="basic"
-                            labelCol={{ offset: 10, span: 16 }}
                             initialValues={{ remember: true }}
                             layout="vertical"
                             autoComplete="off"
@@ -30,30 +31,36 @@ const Login = () => {
                             >
 
                             <Form.Item
+                                className="form-field"
                                 label="Email"
                                 name="email"
-                                rules={[{ required: true, message: 'Please input your mail!' }]}
+                                align="middle"
+                                wrapperCol={{ span: 24 }}
+                                rules={[{ required: true, message: 'Veuillez rentrer votre email !' }]}
                             >
                                 <Input />
                             </Form.Item>
 
                             <Form.Item
+                                className="form-field"
                                 label="Password"
                                 name="password"
-                                rules={[{ required: true, message: 'Please input your password!' }]}
+                                align="middle"
+                                wrapperCol={{ span: 24 }}
+                                rules={[{ required: true, message: 'Veuillez rentrer votre mots de passe !' }]}
                             >
                                 <Input.Password />
                             </Form.Item>
 
-                            <Form.Item className="login-form-submit" wrapperCol={{ offset: 10, span: 16 }}>
+                            <Form.Item wrapperCol={{ span: 24 }}>
                                 <Button type="primary" htmlType="submit">
                                 Submit
                                 </Button>
                             </Form.Item>
                         </Form>
-                    </div>
-                </div>
-            </section>
+                    </Col>
+                </Row>
+            </div>
         </>
     );
 }
