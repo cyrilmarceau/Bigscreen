@@ -1,4 +1,4 @@
-import { Helper } from '../helpers';
+import Helper from '~/helpers';
 import _ from 'lodash';
 import axios from 'axios';
 import { message as messageAntd } from 'antd';
@@ -15,10 +15,10 @@ class APIFactory {
             ...extraParams,
         };
 
-        // if (autenticatedRoute === true) {
-        //     const authToken = Helper.getItem('authToken');
-        //     reqHeaders.Authorization = `Baerer ${authToken}`;
-        // }
+        if (autenticatedRoute === true) {
+            const authToken = Helper.getItem('authToken');
+            reqHeaders.Authorization = `Baerer ${authToken}`;
+        }
 
         return axios.create({
             baseURL: this.publicApiUrl,
@@ -76,6 +76,6 @@ class APIFactory {
     }
 }
 
-const API = new APIFactory('http://127.0.0.1:8000/', 'api/');
+const API = typeof window !== 'undefined' ? new APIFactory('http://127.0.0.1:8000/', 'api/') : null;
 
 export default API;

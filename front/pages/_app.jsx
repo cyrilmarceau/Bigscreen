@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css';
-import '../styles/index.scss'
+import '../styles/index.scss';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
 

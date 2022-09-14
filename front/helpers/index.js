@@ -1,10 +1,15 @@
-class HelperBS {
-    constructor() {}
-
+class Helper {
     static getItem(key) {
-        if (typeof key !== null) {
-            return typeof widnow === 'object' ? localStorage.getItem(`@${key}`) : () => {};
-        } else throw new Error('ERROR_EMPTY_KEY');
+        if (typeof key === null) {
+            throw new Error('ERROR_EMPTY_KEY');
+        } else {
+            const result = localStorage.getItem(`@${key}`);
+            if (typeof result === 'object') {
+                return JSON.parse(result);
+            } else {
+                return result;
+            }
+        }
     }
 
     static setItem(key, value) {
@@ -12,20 +17,26 @@ class HelperBS {
             throw new Error('ERROR_EMPTY_KEY');
         } else if (typeof value === null) {
             throw new Error('ERROR_EMPTY_VALUE');
-        } else typeof widnow === 'object' ? localStorage.setItem(`@${key}`, `@${value}`) : () => {};
+        } else {
+            if (typeof window === 'object') {
+                return localStorage.setItem(`@${key}`, `${JSON.stringify(value)}`);
+            } else {
+                return localStorage.setItem(`@${key}`, `${value}`);
+            }
+        }
     }
 
     static removeItem(key) {
         if (typeof key === null) {
             throw new Error('ERROR_EMPTY_KEY');
-        } else typeof widnow === 'object' ? localStorage.removeItem(`@${key}`) : () => {};
+        } else {
+            return localStorage.removeItem(`@${key}`);
+        }
     }
 
     static removeAllItem() {
-        return typeof widnow === 'object' ? localStorage.clear() : () => {};
+        return localStorage.clear();
     }
 }
-
-const Helper = new HelperBS();
 
 export default Helper;
