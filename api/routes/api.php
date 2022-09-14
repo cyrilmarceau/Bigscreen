@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminQuestionController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\client\ClientQuestionController;
 use App\Http\Controllers\SurveyedController;
 use Illuminate\Http\Request;
