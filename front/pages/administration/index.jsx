@@ -1,12 +1,30 @@
 import { Row, Col, Button, Form, Input } from 'antd';
-import { useState } from 'react';
-import axios from 'axios';
+import API from '~/api';
+import Helper from '~/helpers';
+import { useRouter } from 'next/router';
 
 const Login = () => {
+
+    const router = useRouter();
     
-    const login = (values) => {
+    const login = async (values) => {
     
-        axios.post('http://127.0.0.1:8000/api/login', values).then(res => console.log(res));
+        try {
+
+            const response = await API.login(values);
+
+            if(response.success) {
+
+                const { token } = response.data
+
+                Helper.setItem("authToken", token);
+
+                router.push("/administration/home");
+            }
+
+        } catch (error) {
+            return;
+        }
     }
 
     return ( 
@@ -19,7 +37,7 @@ const Login = () => {
 
                         <h1 className="login-form-title">Big Screen</h1>
 
-                        <p class="login-form-paragraph">Me connecter</p>
+                        <p className="login-form-paragraph">Me connecter</p>
 
                         <Form
                             className="login-form-fields-group"

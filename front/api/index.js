@@ -31,19 +31,19 @@ class APIFactory {
             case 200:
                 return data;
             case 400:
-                // messageAntd.error(`${data.message}`);
+                messageAntd.error(`${data.message}`);
                 return { ...data, results: [], status, axiosMessage: message };
             case 404:
-                // messageAntd.error(`${data.message}`);
+                messageAntd.error(`${data.message}`);
                 return { ...data, status, axiosMessage: message };
             case 500:
-                // messageAntd.error(`${data.message}`);
+                messageAntd.error(`${data.message}`);
                 return { ...data, status, axiosMessage: message };
             case 0:
-                // messageAntd.error(`${data.message}`);
+                messageAntd.error(`${data.message}`);
                 return { ...data, status, axiosMessage: message };
             default:
-                // messageAntd.error(`${data.message}`);
+                messageAntd.error(`${data.message}`);
                 return { ...data, status, axiosMessage: message };
         }
     }
@@ -72,7 +72,7 @@ class APIFactory {
     /** ----------------------------------------------------------------------------- AUTH */
     login(values = {}) {
         if (_.isNil(values)) return Promise.reject(new Error('ERR_EMPTY_PARAM'));
-        return this.postRoute(`${this.prefix}login/`, values, false);
+        return this.postRoute(`${this.prefix}login`, values, false);
     }
 }
 
