@@ -38,5 +38,5 @@ Route::middleware(['auth:sanctum'])->group( function () {
 
 
 Route::apiResource('admin/questions', AdminQuestionController::class);
-Route::apiResource('client/questions', ClientQuestionController::class);
+Route::apiResource('questions', ClientQuestionController::class);
 Route::apiResource('surveyeds', SurveyedController::class);

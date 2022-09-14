@@ -74,6 +74,10 @@ class APIFactory {
         if (_.isNil(values)) return Promise.reject(new Error('ERR_EMPTY_PARAM'));
         return this.postRoute(`${this.prefix}login`, values, false);
     }
+
+    getQuestions() {
+        return this.getRoute(`${this.prefix}questions`);
+    }
 }
 
 const API = typeof window !== 'undefined' ? new APIFactory('http://127.0.0.1:8000/', 'api/') : null;

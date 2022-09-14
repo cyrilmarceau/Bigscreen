@@ -23,16 +23,15 @@ const Login = () => {
     };
 
     return (
-        <>
+        <div className="login">
             <div className='page-container'>
                 <Row justify='center' align='middle' className='login-form-container'>
-                    <Col xs={24} sm={16} lg={8} justify='center' align='middle' className='login-form-card'>
+                    <Col xs={24} sm={16} lg={8} justify='center' align='middle' className='card'>
                         <h1 className='login-form-title'>Big Screen</h1>
 
                         <p className='login-form-paragraph'>Me connecter</p>
 
                         <Form
-                            className='login-form-fields-group'
                             name='basic'
                             initialValues={{ remember: true }}
                             layout='vertical'
@@ -60,14 +59,14 @@ const Login = () => {
 
                             <Form.Item wrapperCol={{ span: 24 }}>
                                 <Button type='primary' htmlType='submit'>
-                                    Submit
+                                    Connexion
                                 </Button>
                             </Form.Item>
                         </Form>
                     </Col>
                 </Row>
             </div>
-        </>
+        </div>
     );
 };
 
