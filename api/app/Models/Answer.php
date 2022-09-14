@@ -9,6 +9,11 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $hidden = [
+        'question_id',
+        'surveyed_id'
+    ];
+
     public function question() {
         return $this->belongsTo(Question::class);
     }

@@ -21,6 +21,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/** AUTH */
+Route::controller(AuthController::class)->group(function(){
+    Route::post('login', 'login');
+});
+
+
+Route::middleware(['auth:sanctum'])->group( function () {
+
+    Route::controller(AuthController::class)->group(function(){
+        Route::post('logout', 'logout');
+    });
+});
+
+
+
 Route::apiResource('admin/questions', AdminQuestionController::class);
 Route::apiResource('client/questions', ClientQuestionController::class);
 Route::apiResource('surveyeds', SurveyedController::class);
