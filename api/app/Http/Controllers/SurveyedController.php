@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Surveyed;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,22 @@ class SurveyedController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->sendResponse($request, "Sondé crée avec succès");
+
+        $surveyed = Surveyed::create([
+            'slug' => fake()->uuid(),
+            'email' => $request[0]["content"]
+        ]);
+
+        for($i = 0; $i < 20; $i++) {
+
+            Answer::create([
+                'question_id' => $request[$i]["questionId"],
+                'surveyed_id' => $surveyed->id,
+                'content' => $request[$i]["content"]
+            ]);
+        }
+
+        return $this->sendResponse($surveyed, "Sondé crée avec succès");
     }
 
     /**

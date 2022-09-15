@@ -9,7 +9,7 @@ const SurveyedForm = ({ questions }) => {
 
         for (const key in values) {
             surveyedData.push({
-                questionId: key,
+                questionId: parseInt(key) + 1,
                 content: values[key],
             });
         }

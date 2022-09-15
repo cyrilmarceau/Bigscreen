@@ -10,11 +10,20 @@ class Surveyed extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'slug',
+        'email',
+        'created_at',
+        'updated_at'
+    ];
+
+    
     public function answers() {
         return $this->hasMany(Answer::class);
     }
 
-        
+  
     /**
      * getAll
      * Get all Surveyed

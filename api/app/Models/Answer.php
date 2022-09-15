@@ -9,6 +9,15 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'question_id',
+        'surveyed_id',
+        'content',
+        'created_at',
+        'updated_at'
+    ];
+
     protected $hidden = [
         'question_id',
         'surveyed_id'
