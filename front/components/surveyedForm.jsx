@@ -1,20 +1,26 @@
 import { Button, Col, Form, Input, InputNumber, Row, Select } from 'antd';
 import React, { useId } from 'react';
+import API from '~/api';
 
 const SurveyedForm = ({ questions }) => {
     const mapId = useId();
 
-    const submitSurveyed = (values) => {
+    const submitSurveyed = async (values) => {
         let surveyedData = [];
 
         for (const key in values) {
             surveyedData.push({
                 questionId: parseInt(key) + 1,
-                content: values[key],
+                content: values[key]
             });
         }
 
-        console.log(surveyedData);
+        try {
+
+            await API.createSurveyed(surveyedData);
+        } catch (error) {
+            return;
+        }
     };
 
     const renderInput = (question) => {

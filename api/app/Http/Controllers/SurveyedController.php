@@ -17,7 +17,7 @@ class SurveyedController extends Controller
     {
         $surveyeds = Surveyed::getAllWithRelation(['answers']);
 
-        $message = $surveyeds->isEmpty() ? "Aucun sondé n'a été trouvé" : "Liste des sondés récupérés avec succès";
+        $message = empty($surveyeds) ? "Aucun sondé n'a été trouvé" : "Liste des sondés récupérés avec succès";
 
         return $this->sendResponse($surveyeds, $message);
     }
@@ -40,6 +40,13 @@ class SurveyedController extends Controller
      */
     public function store(Request $request)
     {
+
+        $checkEmail = Surveyed::where('email', $request[0]["content"])->first();
+
+        if(!empty($checkEmail)) {
+
+            return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 405);
+        }
 
         $surveyed = Surveyed::create([
             'slug' => fake()->uuid(),
