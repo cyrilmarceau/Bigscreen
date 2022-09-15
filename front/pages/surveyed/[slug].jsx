@@ -1,12 +1,12 @@
 import React from 'react';
 import DefaultLayout from '~/components/layout/DefaultLayout';
 
-const index = () => {
+const ClientSurveyedPage = () => {
     return <div>index</div>;
 };
 
-export default index;
+export default ClientSurveyedPage;
 
-index.getLayout = function getLayout(page) {
+ClientSurveyedPage.getLayout = function getLayout(page) {
     return <DefaultLayout>{page}</DefaultLayout>;
 };
