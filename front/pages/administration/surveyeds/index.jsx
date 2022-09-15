@@ -5,7 +5,7 @@ const AdminSurveyedsPage = () => {
     return <div>AdminSurveyedsPage</div>;
 };
 
-export default index;
+export default AdminSurveyedsPage;
 
 AdminSurveyedsPage.getLayout = function getLayout(page) {
     return <AdminLayout>{page}</AdminLayout>;

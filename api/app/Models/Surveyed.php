@@ -52,6 +52,6 @@ class Surveyed extends Model
     }
 
     public static function getBySlug($slug) {
-        return Surveyed::with(['answers'])->where('slug', $slug)->first();
+        return Surveyed::with(['answers', 'answers.question'])->where('slug', $slug)->first();
     }
 }

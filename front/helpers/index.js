@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 class Helper {
     static getItem(key) {
         if (typeof key === null) {
@@ -36,6 +38,10 @@ class Helper {
 
     static removeAllItem() {
         return localStorage.clear();
+    }
+
+    static formatDate(date) {
+        return moment(date).format('MM/DD/YYYY à HH:mm:ss');
     }
 }
 
