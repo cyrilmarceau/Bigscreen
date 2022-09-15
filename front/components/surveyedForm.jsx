@@ -1,23 +1,37 @@
-import { Button, Col, Form, Input, InputNumber, Row, Select } from 'antd';
+import { Button, Col, Form, Input, InputNumber, Row, Select, Modal } from 'antd';
 import React, { useId } from 'react';
 import API from '~/api';
 
 const SurveyedForm = ({ questions }) => {
+
     const mapId = useId();
 
     const submitSurveyed = async (values) => {
+        
         let surveyedData = [];
 
         for (const key in values) {
-            surveyedData.push({
-                questionId: parseInt(key) + 1,
-                content: values[key]
-            });
+
+            surveyedData = [...surveyedData, { questionId: parseInt(key) + 1, content: values[key] } ];
         }
 
         try {
 
-            await API.createSurveyed(surveyedData);
+            const response = await API.createSurveyed(surveyedData);
+
+            if(response.success) {
+                
+                Modal.success({
+                    title: 'Votre réponse a bien été recu',
+                    content: (
+                        <p>Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à
+                        votre investissement, nous vous préparons une application toujours plus
+                        facile à utiliser, seul ou en famille.
+                        Si vous désirez consulter vos réponse ultérieurement, vous pouvez consultez
+                        cette adresse: <a href={`http://localhost:3000/sonde/${response.data.slug}`}>http://localhost:3000/sonde/{response.data.slug}</a></p>
+                    )
+                });
+            }
         } catch (error) {
             return;
         }
