@@ -8,8 +8,16 @@ const SurveyedForm = () => {
     const [questions, setQuestions] = useState();
 
     const login = (values) => {
-      
-        console.log(values);
+
+        let surveyedData = [];
+
+        for ( const key in values ) {
+
+            surveyedData.push({
+                questionId: key,
+                content: values[key]
+            })
+        }
     };
 
     const renderInput = (question) => {
@@ -20,17 +28,17 @@ const SurveyedForm = () => {
 
             return (
                 <Select>
-                    {answerOptions.map(answerOption => <Select.Option value={answerOption.key}>{answerOption.value}</Select.Option>)}
+                    {answerOptions.map(answerOption => <Select.Option value={answerOption.key} key={uuidv4()}>{answerOption.value}</Select.Option>)}
                 </Select>
             );
         }
         
         else if( question.type === "B") {
-            return <Input />
+            return <Input maxLength={255} />;
         }
 
         else {
-            return <InputNumber />
+            return <InputNumber min="1" max="5" />;
         }
     }
 
@@ -56,7 +64,7 @@ const SurveyedForm = () => {
                         layout="vertical"
                         onFinish={login}>
 
-                            { questions.map(question => (
+                            { questions.map((question, index) => (
 
                                     <Row justify='center' key={uuidv4()}>
 
@@ -64,7 +72,11 @@ const SurveyedForm = () => {
 
                                             <h2>Question {question.title}</h2>
 
-                                            <Form.Item align='middle' label={question.content}>
+                                            <Form.Item 
+                                                align='middle' 
+                                                label={question.content} 
+                                                name={index}
+                                                extra={question.type === "B" ? "255 caractères maximum" : ""}>
                                                 {renderInput(question)}
                                             </Form.Item>
                                         </Col>
