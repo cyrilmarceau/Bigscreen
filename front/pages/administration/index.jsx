@@ -3,7 +3,7 @@ import API from '~/api';
 import Helper from '~/helpers';
 import { useRouter } from 'next/router';
 
-const Login = () => {
+const LoginPage = () => {
     const router = useRouter();
 
     const login = async (values) => {
@@ -23,7 +23,7 @@ const Login = () => {
     };
 
     return (
-        <div className="login">
+        <div className='login'>
             <div className='page-container'>
                 <Row justify='center' align='middle' className='login-form-container'>
                     <Col xs={24} sm={16} lg={8} justify='center' align='middle' className='card'>
@@ -31,12 +31,7 @@ const Login = () => {
 
                         <p className='login-form-paragraph'>Me connecter</p>
 
-                        <Form
-                            name='basic'
-                            initialValues={{ remember: true }}
-                            layout='vertical'
-                            autoComplete='off'
-                            onFinish={login}>
+                        <Form name='basic' initialValues={{ remember: true }} layout='vertical' autoComplete='off' onFinish={login}>
                             <Form.Item
                                 className='form-field'
                                 label='Email'
@@ -70,4 +65,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginPage;

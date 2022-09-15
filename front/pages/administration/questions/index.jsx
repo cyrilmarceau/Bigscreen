@@ -4,7 +4,7 @@ import AdminLayout from '~/components/layout/admin/AdminLayout';
 import { Table } from 'antd';
 import { isNil } from 'lodash';
 
-const AdminQuestions = () => {
+const AdminQuestionsPage = () => {
     const columns = [
         {
             title: 'N°',
@@ -46,8 +46,8 @@ const AdminQuestions = () => {
     return <Table loading={!isNil(questions) === false ? true : false} columns={columns} dataSource={questions} />;
 };
 
-export default AdminQuestions;
+export default AdminQuestionsPage;
 
-AdminQuestions.getLayout = function getLayout(page) {
+AdminQuestionsPage.getLayout = function getLayout(page) {
     return <AdminLayout>{page}</AdminLayout>;
 };

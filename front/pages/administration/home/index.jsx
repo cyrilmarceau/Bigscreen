@@ -1,12 +1,12 @@
 import React from 'react';
 import AdminLayout from '~/components/layout/admin/AdminLayout';
 
-const index = () => {
+const AdminHomePage = () => {
     return <div>index</div>;
 };
 
-export default index;
+export default AdminHomePage;
 
-index.getLayout = function getLayout(page) {
+AdminHomePage.getLayout = function getLayout(page) {
     return <AdminLayout>{page}</AdminLayout>;
 };

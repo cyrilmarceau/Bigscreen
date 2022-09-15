@@ -1,12 +1,12 @@
 import React from 'react';
 import AdminLayout from '~/components/layout/admin/AdminLayout';
 
-const index = () => {
-    return <div>index</div>;
+const AdminSurveyedsPage = () => {
+    return <div>AdminSurveyedsPage</div>;
 };
 
 export default index;
 
-index.getLayout = function getLayout(page) {
+AdminSurveyedsPage.getLayout = function getLayout(page) {
     return <AdminLayout>{page}</AdminLayout>;
 };
