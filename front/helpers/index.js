@@ -41,7 +41,7 @@ class Helper {
     }
 
     static formatDate(date) {
-        return moment(date).format('MM/DD/YYYY à HH:mm:ss');
+        return moment(date).format('DD/MM/YYYY à HH:mm:ss');
     }
 }
 
