@@ -9,11 +9,11 @@ const index = () => {
 
     const [questions, setQuestions] = useState(null);
 
-    const getQuestions = async () => {
+    const getClientQuestions = async () => {
 
         try {
 
-            const response = await API.getQuestions();
+            const response = await API.getClientQuestions();
 
             if (response.success) {
 
@@ -25,7 +25,7 @@ const index = () => {
     }
 
     useEffect(() => {
-        getQuestions();
+        getClientQuestions();
     }, []);
 
     return (

@@ -75,8 +75,8 @@ class APIFactory {
         return this.postRoute(`${this.prefix}login`, values, false);
     }
 
-    getQuestions() {
-        return this.getRoute(`${this.prefix}questions`);
+    getClientQuestions() {
+        return this.getRoute(`${this.prefix}client/questions`);
     }
 }
 
