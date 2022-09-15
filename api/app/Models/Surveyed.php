@@ -14,7 +14,7 @@ class Surveyed extends Model
         return $this->hasMany(Answer::class);
     }
 
-        
+
     /**
      * getAll
      * Get all Surveyed

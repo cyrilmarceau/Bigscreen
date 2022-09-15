@@ -10,7 +10,7 @@ const AdminLayout = ({ children }) => {
         <>
             <Layout hasSider>
                 <SiderBS />
-                <Layout className='site-layout' style={{ marginLeft: 200 }}>
+                <Layout className='site-layout' style={{ marginLeft: 200, minHeight: '100vh', overflowY: 'hidden' }}>
                     <HeaderBS />
                     <ContentBS>{children}</ContentBS>
                     <FooterBS />

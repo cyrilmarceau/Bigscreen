@@ -7,7 +7,7 @@ const { Header, Content, Footer } = Layout;
 const DefaultLayout = ({ children }) => {
     return (
         <Layout className='layout'>
-            <Content style={{ padding: '0 50px' }}>
+            <Content style={{ padding: '50px 50px' }}>
                 <div className='site-layout-content'>{children}</div>
             </Content>
             <FooterBS />

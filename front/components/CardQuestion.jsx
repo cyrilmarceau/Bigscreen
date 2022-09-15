@@ -2,9 +2,9 @@ import React from 'react';
 const { Meta } = Card;
 import { Row, Col, Card } from 'antd';
 
-const CardQuestion = ({ title, content, children }) => {
+const CardQuestion = ({ title, content, span = 24, children }) => {
     return (
-        <Col span={24} justify='center' align='start'>
+        <Col span={span} justify='center' align='start' style={span < 24 ? { margin: 'auto' } : null}>
             <Card
                 title={`Question ${title}`}
                 headStyle={{ fontWeight: 'bold' }}

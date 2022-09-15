@@ -53,9 +53,12 @@ class SurveyedController extends Controller
 
         $surveyed = Surveyed::getBySlug($slug);
 
-        $message = empty($surveyed) ? "Aucun sondé n'a été trouvé" : "Sondé récupéré avec succès";
-
-        return $this->sendResponse($surveyed, $message);
+        if(empty($surveyed)){
+            return $this->sendError('Aucun sondé n\'a été trouvé', null, 404);
+        } else {
+            return $this->sendResponse($surveyed, "Sondé récupéré avec succès");
+        }
+        
     }
 
     /**

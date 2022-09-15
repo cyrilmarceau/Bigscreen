@@ -22,7 +22,7 @@ const ClientSurveyedPage = () => {
                 setSurveyed(response.data);
             }
         } catch (error) {
-            return;
+            router.push('/sonde');
         }
     };
 
@@ -31,28 +31,26 @@ const ClientSurveyedPage = () => {
     }, [router.query.slug]);
 
     return (
-        <Row>
-            {!isNil(surveyed) && (
-                <>
-                    <Col span={20} justify='center' align='middle' className='card header-card'>
-                        <h1 className=''>Big Screen</h1>
+        !isNil(surveyed) && (
+            <Row>
+                <Col span={14} justify='center' align='middle' className='card header-card' style={{ margin: 'auto', marginBottom: 30 }}>
+                    <h1 className='surveyed-form-title'>Big Screen</h1>
 
-                        <h2 className=''>
-                            Vous trouverez ce dessous les réponses que vous avez apportées à notre sondage le {Helper.formatDate(surveyed.created_at)}
-                        </h2>
-                    </Col>
-                    {surveyed?.answers?.map((el) => {
-                        return (
-                            <CardQuestion key={el.id} title={el?.question?.title} content={el?.question?.content}>
-                                <div style={{ borderStyle: 'dashed', marginTop: 15, padding: 10 }}>
-                                    <span>{el.content}</span>
-                                </div>
-                            </CardQuestion>
-                        );
-                    })}
-                </>
-            )}
-        </Row>
+                    <h2 className='surveyed-form-paragraph'>
+                        Vous trouverez ce dessous les réponses que vous avez apportées à notre sondage le {Helper.formatDate(surveyed.created_at)}
+                    </h2>
+                </Col>
+                {surveyed?.answers?.map((el) => {
+                    return (
+                        <CardQuestion span={14} key={el.id} title={el?.question?.title} content={el?.question?.content}>
+                            <div style={{ borderStyle: 'dashed', marginTop: 15, padding: 10 }}>
+                                <span>{el.content}</span>
+                            </div>
+                        </CardQuestion>
+                    );
+                })}
+            </Row>
+        )
     );
 };
 
