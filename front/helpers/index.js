@@ -20,7 +20,7 @@ class Helper {
         } else if (typeof value === null) {
             throw new Error('ERROR_EMPTY_VALUE');
         } else {
-            if (typeof window === 'object') {
+            if (typeof result === 'object') {
                 return localStorage.setItem(`@${key}`, `${JSON.stringify(value)}`);
             } else {
                 return localStorage.setItem(`@${key}`, `${value}`);
