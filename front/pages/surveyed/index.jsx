@@ -1,9 +1,32 @@
 import { Col, Row } from 'antd';
-import React from 'react';
+import { isNil } from 'lodash';
+import React, { useEffect, useState } from 'react';
+import API from '~/api';
 import DefaultLayout from '~/components/layout/DefaultLayout';
 import SurveyedForm from '~/components/surveyedForm';
 
 const index = () => {
+
+    const [questions, setQuestions] = useState(null);
+
+    const getQuestions = async () => {
+
+        try {
+
+            const response = await API.getQuestions();
+
+            if (response.success) {
+
+                setQuestions(response.data);
+            }
+       } catch (error) {
+            return;
+        }
+    }
+
+    useEffect(() => {
+        getQuestions();
+    }, []);
 
     return (
         
@@ -13,7 +36,7 @@ const index = () => {
 
                 <Col span={16} justify='center' align="middle">
 
-                    <SurveyedForm />
+                    {!isNil(questions) ? ( <SurveyedForm questions={questions} /> ) : ( <div className="loading-view">Chargement...</div> )}
                 </Col>
             </Row>
         </div>

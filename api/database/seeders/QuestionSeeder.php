@@ -251,15 +251,33 @@ class QuestionSeeder extends Seeder
             [
                 'title' => '18/20',
                 'content' => 'Aimeriez vous pouvoir enregistrer des émissions TV pour pouvoir les regarder ultérieurement ?',
-                'type' => 'C',
-                'options' => null,
+                'type' => 'A',
+                'options' => json_encode([
+                    [
+                        "key" => "yes",
+                        "value" => "Oui"
+                    ],
+                    [
+                        "key" => "no",
+                        "value" => "Non"
+                    ]
+                ]),
                 'created_at' => now()
             ],
             [
                 'title' => '19/20',
                 'content' => 'Aimeriez vous jouer à des jeux exclusifs sur votre Bigscreen ?',
-                'type' => 'C',
-                'options' => null,
+                'type' => 'A',
+                'options' => json_encode([
+                    [
+                        "key" => "yes",
+                        "value" => "Oui"
+                    ],
+                    [
+                        "key" => "no",
+                        "value" => "Non"
+                    ]
+                ]),
                 'created_at' => now()
             ],
             [

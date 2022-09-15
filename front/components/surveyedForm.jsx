@@ -1,13 +1,14 @@
 import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useId } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { isNil } from "lodash";
 import API from "~/api";
 
-const SurveyedForm = () => {
+const SurveyedForm = ({ questions }) => {
 
-    const [questions, setQuestions] = useState();
+    const mapId = useId();
 
-    const login = (values) => {
+    const submitSurveyed = (values) => {
 
         let surveyedData = [];
 
@@ -18,6 +19,8 @@ const SurveyedForm = () => {
                 content: values[key]
             })
         }
+
+        console.log(surveyedData);
     };
 
     const renderInput = (question) => {
@@ -27,8 +30,8 @@ const SurveyedForm = () => {
             const answerOptions = JSON.parse(question.options);
 
             return (
-                <Select>
-                    {answerOptions.map(answerOption => <Select.Option value={answerOption.key} key={uuidv4()}>{answerOption.value}</Select.Option>)}
+                <Select placeholder="Sélectionner une réponse">
+                    {answerOptions.map((answerOption, index) => <Select.Option value={answerOption.key} key={`${mapId}-${index}`}>{answerOption.value}</Select.Option>)}
                 </Select>
             );
         }
@@ -42,14 +45,9 @@ const SurveyedForm = () => {
         }
     }
 
-    useEffect(() => {
-        
-        API.getQuestions().then(res => setQuestions(res.data))
-    }, []);
-
     return ( 
         <div className="surveyed-form">
-            {questions ? (
+            {!isNil(questions) && (
                 <>
 
                     <Col span={20} justify='center' align="middle" className="card header-card">
@@ -62,11 +60,11 @@ const SurveyedForm = () => {
                     <Form
                         initialValues={{ remember: true }}
                         layout="vertical"
-                        onFinish={login}>
+                        onFinish={submitSurveyed}>
 
                             { questions.map((question, index) => (
 
-                                    <Row justify='center' key={uuidv4()}>
+                                    <Row justify='center' key={`${mapId}-${index}`}>
 
                                         <Col span={20} justify='center' align="middle" className="card question-card">
 
@@ -76,7 +74,8 @@ const SurveyedForm = () => {
                                                 align='middle' 
                                                 label={question.content} 
                                                 name={index}
-                                                extra={question.type === "B" ? "255 caractères maximum" : ""}>
+                                                extra={question.type === "B" ? "255 caractères maximum" : ""}
+                                                rules={[{ required: true, message: 'Votre réponse est requise' }]}>
                                                 {renderInput(question)}
                                             </Form.Item>
                                         </Col>
@@ -90,8 +89,6 @@ const SurveyedForm = () => {
                             </Form.Item>
                     </Form>
                 </>
-            ) : (
-                <div className="loading-view">Chargement...</div>
             )}
         </div>
      );

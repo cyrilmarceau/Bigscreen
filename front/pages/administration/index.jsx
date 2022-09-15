@@ -43,7 +43,7 @@ const Login = () => {
                                 name='email'
                                 align='middle'
                                 wrapperCol={{ span: 24 }}
-                                rules={[{ required: true, message: 'Veuillez rentrer votre email !' }]}>
+                                rules={[{ required: true, message: 'Votre email est requis' }]}>
                                 <Input />
                             </Form.Item>
 
@@ -53,7 +53,7 @@ const Login = () => {
                                 name='password'
                                 align='middle'
                                 wrapperCol={{ span: 24 }}
-                                rules={[{ required: true, message: 'Veuillez rentrer votre mots de passe !' }]}>
+                                rules={[{ required: true, message: 'Mots de passe obligatoire' }]}>
                                 <Input.Password />
                             </Form.Item>
 
