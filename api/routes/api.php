@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\admin\AdminQuestionController;
+use App\Http\Controllers\Admin\AdminQuestionController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\client\ClientQuestionController;
+use App\Http\Controllers\Client\ClientQuestionController;
 use App\Http\Controllers\SurveyedController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
