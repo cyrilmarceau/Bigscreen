@@ -78,6 +78,10 @@ class APIFactory {
     getClientQuestions() {
         return this.getRoute(`${this.prefix}client/questions`);
     }
+
+    getAdminQuestions() {
+        return this.getRoute(`${this.prefix}admin/questions`);
+    }
 }
 
 const API = typeof window !== 'undefined' ? new APIFactory('http://127.0.0.1:8000/', 'api/') : null;
