@@ -76,11 +76,15 @@ class APIFactory {
     }
 
     getClientQuestions() {
-        return this.getRoute(`${this.prefix}client/questions`);
+        return this.getRoute(`${this.prefix}client/questions`, null, false);
     }
 
     getAdminQuestions() {
-        return this.getRoute(`${this.prefix}admin/questions`);
+        return this.getRoute(`${this.prefix}admin/questions`, null, false);
+    }
+
+    getSurveyedBySlug(slug) {
+        return this.getRoute(`${this.prefix}surveyeds/${slug}`, null, false);
     }
 }
 

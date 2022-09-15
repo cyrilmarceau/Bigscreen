@@ -33,7 +33,7 @@ const SurveyedForm = ({ questions }) => {
         } else if (question.type === 'B') {
             return <Input maxLength={255} />;
         } else {
-            return <InputNumber min='1' max='5' />;
+            return <InputNumber type='number' min='1' max='5' />;
         }
     };
 
