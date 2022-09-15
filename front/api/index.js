@@ -10,14 +10,14 @@ class APIFactory {
         this.getAxiosInstance();
     }
 
-    getAxiosInstance(autenticatedRoute = true, extraParams = {}) {
+    getAxiosInstance(autenticatedRoute = false, extraParams = {}) {
         let reqHeaders = {
             ...extraParams,
         };
 
         if (autenticatedRoute === true) {
             const authToken = Helper.getItem('authToken');
-            reqHeaders.Authorization = `Baerer ${authToken}`;
+            reqHeaders.Authorization = `Bearer ${authToken}`;
         }
 
         return axios.create({
@@ -73,6 +73,10 @@ class APIFactory {
     login(values = {}) {
         if (_.isNil(values)) return Promise.reject(new Error('ERR_EMPTY_PARAM'));
         return this.postRoute(`${this.prefix}login`, values, false);
+    }
+
+    logout() {
+        return this.postRoute(`${this.prefix}logout`, null, true);
     }
 
     getClientQuestions() {
