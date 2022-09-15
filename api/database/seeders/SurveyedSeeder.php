@@ -19,13 +19,13 @@ class SurveyedSeeder extends Seeder
     {
         $questions = Question::all();
 
-        Surveyed::factory(5)->create()->each(function($survey)  use ($questions)  {
+        Surveyed::factory(5)->create()->each(function($surveyed)  use ($questions)  {
 
             foreach($questions as $question) {
 
                 $relationship = [
                     'question_id' => $question->id,
-                    'surveyed_id' => $survey->id
+                    'surveyed_id' => $surveyed->id
                 ];
 
                 switch ($question->type) {

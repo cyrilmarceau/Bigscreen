@@ -86,6 +86,11 @@ class APIFactory {
     getSurveyedBySlug(slug) {
         return this.getRoute(`${this.prefix}surveyeds/${slug}`, null, false);
     }
+
+    createSurveyed(values) {
+        if (_.isNil(values)) return Promise.reject(new Error('ERR_EMPTY_PARAM'));
+        return this.postRoute(`${this.prefix}surveyeds`, values, false);
+    }
 }
 
 const API = typeof window !== 'undefined' ? new APIFactory('http://127.0.0.1:8000/', 'api/') : null;
