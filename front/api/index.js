@@ -88,6 +88,7 @@ class APIFactory {
     }
 
     getSurveyedBySlug(slug) {
+        if (_.isNil(slug)) return Promise.reject(new Error('ERR_EMPTY_PARAM'));
         return this.getRoute(`${this.prefix}surveyeds/${slug}`, null, false);
     }
 
