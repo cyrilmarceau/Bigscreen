@@ -15,6 +15,7 @@ const ClientSurveyedPage = () => {
     const { slug } = router.query;
 
     const getSurveyed = async () => {
+
         try {
             const response = await API.getSurveyedBySlug(slug);
 
@@ -22,9 +23,25 @@ const ClientSurveyedPage = () => {
                 setSurveyed(response.data);
             }
         } catch (error) {
-            router.push('/sonde');
+
+            if(!isNil(slug)) {
+
+                router.push('/sonde');
+            }
         }
     };
+
+    const getAnswerContent = (answer) => {
+
+        if(answer.question.type === "A") {
+
+            const questionOptions = JSON.parse(answer.question.options);
+
+            return questionOptions.find(option => option.key === answer.content).value;
+        }
+
+        return answer.content;
+    }
 
     useEffect(() => {
         getSurveyed();
@@ -37,14 +54,14 @@ const ClientSurveyedPage = () => {
                     <h1 className='surveyed-form-title'>Big Screen</h1>
 
                     <h2 className='surveyed-form-paragraph'>
-                        Vous trouverez ce dessous les réponses que vous avez apportées à notre sondage le {Helper.formatDate(surveyed.created_at)}
+                        Vous trouverez ci-dessous les réponses que vous avez apportées à notre sondage le {Helper.formatDate(surveyed.created_at)}
                     </h2>
                 </Col>
                 {surveyed?.answers?.map((el) => {
                     return (
                         <CardQuestion span={14} key={el.id} title={el?.question?.title} content={el?.question?.content}>
                             <div style={{ borderStyle: 'dashed', marginTop: 15, padding: 10 }}>
-                                <span>{el.content}</span>
+                                <span>{getAnswerContent(el)}</span>
                             </div>
                         </CardQuestion>
                     );
