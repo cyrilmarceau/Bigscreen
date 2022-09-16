@@ -51,7 +51,13 @@ class Surveyed extends Model
         return $surveyedsWithRelations;
     }
 
-    public static function getBySlug($slug) {
+    public static function getBySlug($slug)
+    {
         return Surveyed::with(['answers', 'answers.question'])->where('slug', $slug)->first();
+    }
+
+    public static function getByMail($email)
+    {
+        return Surveyed::where('email', $email)->first();
     }
 }

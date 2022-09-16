@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSurveyedRequest;
 use App\Models\Answer;
 use App\Models\Surveyed;
 use Illuminate\Http\Request;
+
 
 class SurveyedController extends Controller
 {
@@ -23,42 +25,36 @@ class SurveyedController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\StoreSurveyedRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSurveyedRequest $request)
     {
 
-        $checkEmail = Surveyed::where('email', $request[0]["content"])->first();
+        $email = $request->input('email');
+
+        $checkEmail = Surveyed::getByMail($email);
 
         if(!empty($checkEmail)) {
-
             return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 405);
         }
 
         $surveyed = Surveyed::create([
             'slug' => fake()->uuid(),
-            'email' => $request[0]["content"]
+            'email' => $email
         ]);
 
-        for($i = 0; $i < 20; $i++) {
+
+        $countRequest = count($request->input('questions'));
+
+        for($i = 0; $i < $countRequest; $i++) {
 
             Answer::create([
-                'question_id' => $request[$i]["questionId"],
+                'question_id' =>$request->input('questions')[$i]["questionId"],
                 'surveyed_id' => $surveyed->id,
-                'content' => $request[$i]["content"]
+                'content' =>$request->input('questions')[$i]["content"]
             ]);
         }
 
@@ -82,17 +78,6 @@ class SurveyedController extends Controller
             return $this->sendResponse($surveyed, "Sondé récupéré avec succès");
         }
         
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Surveyed  $survey
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Surveyed $surveyed)
-    {
-        //
     }
 
     /**
