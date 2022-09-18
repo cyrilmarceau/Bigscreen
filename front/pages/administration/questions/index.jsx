@@ -43,7 +43,7 @@ const AdminQuestionsPage = () => {
         getAdminQuestions();
     }, []);
 
-    return <Table loading={!isNil(questions) === false ? true : false} columns={columns} dataSource={questions} />;
+    return <Table columns={columns} dataSource={questions} />;
 };
 
 export default AdminQuestionsPage;
