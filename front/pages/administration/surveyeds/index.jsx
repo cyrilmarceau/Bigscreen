@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import API from '~/api';
 import AdminLayout from '~/components/layout/admin/AdminLayout';
-import { Table } from 'antd';
+import { Table, Pagination } from 'antd';
 import { isNil } from 'lodash';
+import Helper from '~/helpers';
 
 const AdminSurveyedsPage = () => {
     const columns = [
@@ -10,17 +11,19 @@ const AdminSurveyedsPage = () => {
             title: 'N°',
             dataIndex: 'title',
             key: 'title',
-            render: (text) => <span>{text}</span>,
+            render: (_, record) => <span>{record?.question?.title}</span>,
         },
         {
-            title: 'Corps',
+            title: 'Question',
             dataIndex: 'content',
             key: 'content',
+            render: (_, record) => <span>{record?.question?.content}</span>,
         },
         {
-            title: 'Réponses',
+            title: 'Réponse',
             dataIndex: 'response',
             key: 'response',
+            render: (_, record) => <span>{!isNil(record) && Helper.parseQuestionOption(record)}</span>,
         },
     ];
 
@@ -34,21 +37,13 @@ const AdminSurveyedsPage = () => {
                 let answers = [];
 
                 response?.data?.forEach((el) => {
-                    el?.answers?.forEach((answer, i) => {
-                        let arr = [];
-
-                        let answerObj = {
-                            title: answer?.question?.title,
-                            content: answer?.question?.content,
-                            response: answer?.content,
-                        };
-
-                        // arr.push(answerObj);
-                        answers.push(answerObj);
+                    let arr = [];
+                    el?.answers?.forEach((answer) => {
+                        // arr.push(answerObj); V1
+                        answers.push(answer);
                     });
+                    // answers.push(arr); V1
                 });
-
-                console.log(answers);
                 setResponses(answers);
             }
         } catch (error) {
@@ -60,10 +55,18 @@ const AdminSurveyedsPage = () => {
         getAnswers();
     }, []);
 
-    return responses?.map((el, i) => {
-        console.log('el', el);
-        // return <Table key={i} pagination={false} loading={!isNil(el) === false ? true : false} columns={columns} dataSource={el} />;
-    });
+    // return responses?.map((el, i) => { V1
+    return (
+        <Table
+            style={{ marginTop: '25px', marginBottom: '25px' }}
+            // key={i}
+            pagination={{ defaultPageSize: 20, pageSizeOptions: [10, 20] }}
+            loading={!isNil(responses) === false ? true : false}
+            columns={columns}
+            dataSource={responses}
+        />
+    );
+    // });
 };
 
 export default AdminSurveyedsPage;
