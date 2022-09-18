@@ -1,0 +1,10 @@
+{
+    "question": {
+        "content": "Titre de ma question",
+        "stats": {
+            "psvr": 1,
+            "windows_mixed_reality": 3,
+            "htc_vive": 11
+        }
+    }
+}
