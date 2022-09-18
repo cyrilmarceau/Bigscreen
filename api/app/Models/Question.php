@@ -35,6 +35,23 @@ class Question extends Model
         return $questions;
     }
 
+    /**
+     * getAll
+     * return question by ID
+     * @return object
+     */
+    public static function getByID($id)
+    {
+        // $question = Question::find($id);
+        $question = Question::with(['answers'])->where('id', $id)->first();
+        return $question;
+    }
+
+    /**
+     * getAllWithExcludedColumns
+     * return question with excluded column(s)
+     * @return object
+     */
     public static function getAllWithExcludedColumns(array $columnToExclude)
     {
         $datas = self::getAll();

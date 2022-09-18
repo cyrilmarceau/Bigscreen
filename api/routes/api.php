@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminQuestionController;
+use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\ClientQuestionController;
 use App\Http\Controllers\SurveyedController;
@@ -33,6 +34,11 @@ Route::middleware(['auth:sanctum'])->group( function () {
     Route::controller(AuthController::class)->group(function(){
         Route::post('logout', 'logout');
     });
+
+    Route::controller(ChartController::class)->group(function(){
+        Route::get('charts', 'charts');
+    });
+
 });
 
 Route::apiResource('admin/questions', AdminQuestionController::class);

@@ -30,4 +30,11 @@ class Answer extends Model
     public function surveyed() {
         return $this->belongsTo(Surveyed::class);
     }
+
+    public static function countByContent($content)
+    {
+        $count = Answer::where('content', $content)->count();
+
+        return $count;
+    }
 }
