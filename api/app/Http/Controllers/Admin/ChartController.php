@@ -41,19 +41,33 @@ class ChartController extends Controller
 
         return $uniqueContent;
     }
-    
+
     /**
      * getAnswerStats
      * return an array of count value
      * @param  mixed $answers
      * @return array
      */
-    private static function getAnswerStats(array $answers): array
+    private static function getAnswerStats(array $answers, Question $question): array
     {
+        // dd($question->options);
+        $options = json_decode($question->options);
+
         $values = [];
         foreach ($answers as $answer) {
             $contentCount = Answer::countByContent($answer);
-            $values[$answer] = $contentCount;
+            
+            if($question->type === 'A'){
+
+                foreach ($options as $option) {
+                    if($option->key === $answer){
+                            $values[$option->value] = $contentCount;  
+                    }
+                }
+
+            } else {
+                $values[$answer] = $contentCount;  
+            }
         }
 
         return $values;
@@ -71,8 +85,10 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $stats = self::getAnswerStats($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer, $question);
 
+        // dd($question->options);
+        // dd(array_search('occulus_rift/s', json_decode($question->options)));
         $response = [
             "content" => $question->content,
             "stats" => $stats,
@@ -95,7 +111,7 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $stats = self::getAnswerStats($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer, $question);
 
 
         $response = [
@@ -119,7 +135,7 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $stats = self::getAnswerStats($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer, $question);
 
 
         $response = [
