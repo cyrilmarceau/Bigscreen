@@ -5,5 +5,5 @@ export default function Home() {
 }
 
 Home.getLayout = function getLayout(page) {
-    return <AdminLayout>{page}</AdminLayout>;
+    return <AdminLayout>{page}</AdminLayout>
 };

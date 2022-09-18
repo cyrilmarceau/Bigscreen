@@ -31,7 +31,6 @@ const AdminQuestionsPage = () => {
             const response = await API.getAdminQuestions();
 
             if (response.success) {
-                console.log(response.data);
                 setQuestions(response.data);
             }
         } catch (error) {

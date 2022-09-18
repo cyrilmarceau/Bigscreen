@@ -6,6 +6,7 @@ import { Layout } from 'antd';
 import FooterBS from '../FooterBS';
 
 const AdminLayout = ({ children }) => {
+
     return (
         <>
             <Layout hasSider>

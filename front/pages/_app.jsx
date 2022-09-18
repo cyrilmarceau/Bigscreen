@@ -1,14 +1,22 @@
 import 'antd/dist/antd.css';
 import '../styles/index.scss';
-import { useRouter } from 'next/router';
 import _ from 'lodash';
+import { AuthProvider } from '~/contexts/AuthContext';
+import { ProtectedRoute } from '~/contexts/ProtectedRoute';
 
 function BigscreenApp({ Component, pageProps }) {
-    const router = useRouter();
 
     const getLayout = Component.getLayout || ((page) => page);
 
-    return getLayout(<Component {...pageProps} />);
+    return(
+        <AuthProvider>
+            <ProtectedRoute>
+                {getLayout(<Component {...pageProps} />)}
+            </ProtectedRoute>
+        </AuthProvider>
+    ) 
+    
+
 }
 
 export default BigscreenApp;
