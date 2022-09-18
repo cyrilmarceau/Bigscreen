@@ -17,9 +17,10 @@ class ClientQuestionController extends Controller
     {
         $questions = Question::getAll();
 
-        $message = $questions->isEmpty() ? "Aucune question n'a été trouvé" : "Liste des questions récupérer avec succès";
-
-        return $this->sendResponse($questions, $message);
+        if($questions->isEmpty()){
+            return $this->sendError('Aucune question n\'a été trouvé.', null);
+        }
+        return $this->sendResponse($questions, "Liste des questions récupérer avec succès");
     }
 
     /**

@@ -1,4 +1,4 @@
-import { Col, Row, message, Modal } from 'antd';
+import { Col, Row, message, Modal, Empty } from 'antd';
 import { isNil } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import API from '~/api';
@@ -16,7 +16,6 @@ const ClientSurveyedFormPage = () => {
                 setQuestions(response.data);
             }
         } catch (error) {
-            console.log('err', error);
             return;
         }
     };
@@ -61,11 +60,13 @@ const ClientSurveyedFormPage = () => {
     return (
         <div className='surveyed-index'>
             <Row justify='center' className='page-container'>
-                <Col span={16} justify='center' align='middle'>
+                <Col span={24} justify='center' align='middle'>
                     {!isNil(questions) ? (
                         <SurveyedForm submitSurveyed={submitSurveyed} questions={questions} />
                     ) : (
-                        <div className='loading-view'>Chargement...</div>
+                        <div className='loading-view'>
+                            <Empty description="Aucune question n'a été trouvé !" />
+                        </div>
                     )}
                 </Col>
             </Row>

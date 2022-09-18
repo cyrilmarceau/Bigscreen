@@ -56,7 +56,7 @@ const ClientSurveyedPage = () => {
                     return (
                         <CardQuestion span={14} key={el.id} title={el?.question?.title} content={el?.question?.content}>
                             <div style={{ borderStyle: 'dashed', marginTop: 15, padding: 10 }}>
-                                <span>{getAnswerContent(el)}</span>
+                                <span>{Helper.parseQuestionOption(el)}</span>
                             </div>
                         </CardQuestion>
                     );

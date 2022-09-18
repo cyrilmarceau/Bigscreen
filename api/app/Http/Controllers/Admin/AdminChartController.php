@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 use function PHPSTORM_META\type;
 
-class ChartController extends Controller
+class AdminChartController extends Controller
 {
     public function charts()
     {
@@ -18,13 +18,9 @@ class ChartController extends Controller
         $questionSeven = self::questionSeven();
         $questionTen = self::questionTen();
 
-        $results = [
-            'six' => $questionSix,
-            'seven' => $questionSeven,
-            'ten' => $questionTen
-        ];
+        $result = [$questionSix, $questionSeven, $questionTen];
 
-        return $this->sendResponse($results, null);
+        return $this->sendResponse($result, null);
     }
     
     /**
@@ -45,19 +41,33 @@ class ChartController extends Controller
 
         return $uniqueContent;
     }
-    
+
     /**
-     * getAnswerCount
+     * getAnswerStats
      * return an array of count value
      * @param  mixed $answers
      * @return array
      */
-    private static function getAnswerCount(array $answers): array
+    private static function getAnswerStats(array $answers, Question $question): array
     {
+        // dd($question->options);
+        $options = json_decode($question->options);
+
         $values = [];
         foreach ($answers as $answer) {
             $contentCount = Answer::countByContent($answer);
-            $values[$answer] = $contentCount;
+            
+            if($question->type === 'A'){
+
+                foreach ($options as $option) {
+                    if($option->key === $answer){
+                            $values[$option->value] = $contentCount;  
+                    }
+                }
+
+            } else {
+                $values[$answer] = $contentCount;  
+            }
         }
 
         return $values;
@@ -75,9 +85,17 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $count = self::getAnswerCount($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer, $question);
 
-        return $count;
+        // dd($question->options);
+        // dd(array_search('occulus_rift/s', json_decode($question->options)));
+        $response = [
+            "content" => $question->content,
+            "stats" => $stats,
+            "type" => "pie"
+        ];
+
+        return $response;
        
     }
     
@@ -93,9 +111,16 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $count = self::getAnswerCount($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer, $question);
 
-        return $count;
+
+        $response = [
+            "content" => $question->content,
+            "stats" => $stats,
+            "type" => "pie"
+        ];
+
+        return $response;
     }
     
     /**
@@ -110,9 +135,16 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $count = self::getAnswerCount($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer, $question);
 
-        return $count;
+
+        $response = [
+            "content" => $question->content,
+            "stats" => $stats,
+            "type" => "pie"
+        ];
+
+        return $response;
     }
     
     /**

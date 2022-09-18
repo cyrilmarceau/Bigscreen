@@ -1,0 +1,25 @@
+.home {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .home-page-title {
+
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .charts-container {
+
+        width: 60rem;
+        padding-top: 1rem;
+
+        .charts-title {
+
+            font-size: 1.25rem;
+        }
+    }
+}

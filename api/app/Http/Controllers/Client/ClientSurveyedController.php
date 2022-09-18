@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSurveyedRequest;
 use App\Models\Answer;
 use App\Models\Surveyed;
 use Illuminate\Http\Request;
 
 
-class SurveyedController extends Controller
+class ClientSurveyedController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +18,11 @@ class SurveyedController extends Controller
      */
     public function index()
     {
-        $surveyeds = Surveyed::getAllWithRelation(['answers']);
+        // $surveyeds = Surveyed::getAllWithRelation(['answers', 'answers.question']);
 
-        $message = empty($surveyeds) ? "Aucun sondé n'a été trouvé" : "Liste des sondés récupérés avec succès";
+        // $message = empty($surveyeds) ? "Aucun sondé n'a été trouvé" : "Liste des sondés récupérés avec succès";
 
-        return $this->sendResponse($surveyeds, $message);
+        // return $this->sendResponse($surveyeds, $message);
     }
 
     /**
