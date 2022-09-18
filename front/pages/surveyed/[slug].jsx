@@ -15,7 +15,6 @@ const ClientSurveyedPage = () => {
     const { slug } = router.query;
 
     const getSurveyed = async () => {
-
         try {
             const response = await API.getSurveyedBySlug(slug);
 
@@ -23,25 +22,21 @@ const ClientSurveyedPage = () => {
                 setSurveyed(response.data);
             }
         } catch (error) {
-
-            if(!isNil(slug)) {
-
-                router.push('/sonde');
+            if (!isNil(slug)) {
+                router.push('/surveyed');
             }
         }
     };
 
     const getAnswerContent = (answer) => {
-
-        if(answer.question.type === "A") {
-
+        if (answer.question.type === 'A') {
             const questionOptions = JSON.parse(answer.question.options);
 
-            return questionOptions.find(option => option.key === answer.content).value;
+            return questionOptions.find((option) => option.key === answer.content).value;
         }
 
         return answer.content;
-    }
+    };
 
     useEffect(() => {
         getSurveyed();
