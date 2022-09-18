@@ -79,7 +79,7 @@ const AdminHomePage = () => {
 
                     {charts.map((chart, index) => { 
                         return (
-                                <Col span={12} justify='center' align='middle' key={`${mapId}-${index}`}>
+                                <Col span={8} justify='center' align='middle' key={`${mapId}-${index}`}>
                                 
                                     <h2 className="charts-title">{chart.content}</h2>
 
