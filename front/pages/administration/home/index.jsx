@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import AdminLayout from '~/components/layout/admin/AdminLayout';
 import { Row, Col } from 'antd';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import axios from 'axios';
 import API from '~/api';
 
 const AdminHomePage = () => {
 
     ChartJS.register(ArcElement, Tooltip, Legend);
-
-    const ChartColorList = [
-        {background: 'rgba(255, 99, 132, 0.2)', border: 'rgba(255, 99, 132, 1)'},
-        {background: 'rgba(54, 162, 235, 0.2)', border: 'rgba(54, 162, 235, 1)'},
-        {background: 'rgba(255, 206, 86, 0.2)', border: 'rgba(255, 206, 86, 1)'},
-        {background: 'rgba(75, 192, 192, 0.2)', border: 'rgba(75, 192, 192, 1)'},
-        {background: 'rgba(153, 102, 255, 0.2)', border: 'rgba(153, 102, 255, 1)'},
-        {background: 'rgba(255, 159, 64, 0.2)', border: 'rgba(255, 159, 64, 1)'}
-    ]
-
+    
+    const mapId = useId();
     const [charts, setCharts] = useState(null);
 
     useEffect(() => {
@@ -30,71 +21,53 @@ const AdminHomePage = () => {
 
         const response = await API.getCharts();
 
-        setCharts(response);
+        setCharts(response.data);
     }
 
-    const renderPie = () => {
+    const renderPie = (chart) => {
 
+        const pieColors = [
+            {background: 'rgba(255, 99, 132, 0.2)', border: 'rgba(255, 99, 132, 1)'},
+            {background: 'rgba(54, 162, 235, 0.2)', border: 'rgba(54, 162, 235, 1)'},
+            {background: 'rgba(255, 206, 86, 0.2)', border: 'rgba(255, 206, 86, 1)'},
+            {background: 'rgba(75, 192, 192, 0.2)', border: 'rgba(75, 192, 192, 1)'},
+            {background: 'rgba(153, 102, 255, 0.2)', border: 'rgba(153, 102, 255, 1)'},
+            {background: 'rgba(255, 159, 64, 0.2)', border: 'rgba(255, 159, 64, 1)'}
+        ]
+
+        const pieData = {
+            labels: [],
+            datasets: [
+            {
+                label: '# of Votes',
+                data: [],
+                backgroundColor: [],
+                borderColor: [],
+                borderWidth: 1,
+            },
+            ]
+        }
+
+        const index = 0;
+
+        for(const response in chart.stats) {
+
+            pieData.labels.push(response);
+            pieData.datasets[0].data.push(chart.stats[response]);
+            pieData.datasets[0].backgroundColor.push(pieColors[index].background);
+            pieData.datasets[0].borderColor.push(pieColors[index].border);
+
+            index++;
+        }
+
+        return pieData;
     }
 
     const renderRadar = () => {
         
     }
 
-    const renderChart = () => {
-
-    }
-
-    // let chartsState = {...charts};
-
-    // response.forEach(data => {
-
-    //     for(response in data.stats) {
-
-    //         chartsState.labels.push(response);
-    //         chartsState.datasets[0].data.push(data.stats[response])
-    //     }
-    // })
-
-    // {
-    //     labels: [],
-    //     datasets: [
-    //       {
-    //         label: '# of Votes',
-    //         data: [],
-    //         backgroundColor: [],
-    //         borderColor: [],
-    //         borderWidth: 1,
-    //       },
-    //     ]
-    // }
-
-    // const data = {
-    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //     datasets: [
-    //       {
-    //         label: '# of Votes',
-    //         data: [12, 19, 3, 5, 2, 3],
-    //         backgroundColor: [
-    //           'rgba(255, 99, 132, 0.2)',
-    //           'rgba(54, 162, 235, 0.2)',
-    //           'rgba(255, 206, 86, 0.2)',
-    //           'rgba(75, 192, 192, 0.2)',
-    //           'rgba(153, 102, 255, 0.2)',
-    //           'rgba(255, 159, 64, 0.2)',
-    //         ],
-    //         borderColor: [
-    //           'rgba(255, 99, 132, 1)',
-    //           'rgba(54, 162, 235, 1)',
-    //           'rgba(255, 206, 86, 1)',
-    //           'rgba(75, 192, 192, 1)',
-    //           'rgba(153, 102, 255, 1)',
-    //           'rgba(255, 159, 64, 1)',
-    //         ],
-    //         borderWidth: 1,
-    //       },
-    //     ],
-    // }
+    const renderChart = (chart) => chart.type === "pie" ? renderPie(chart) : renderRadar();
 
     return (
         
@@ -102,22 +75,21 @@ const AdminHomePage = () => {
 
             <h1 className="home-page-title">Statistiques des sondages</h1>
 
-            <Row gutter={16} justify="start" className="charts-container">
+            { charts && <Row gutter={16} justify="start" className="charts-container">
 
-                <Col span={12} justify='center' align='middle'>
-                    
-                    <h2 className="charts-title">Quelle marque de casque VR utilisez vous ?</h2>
+                    {charts.map((chart, index) => { 
+                        return (
+                                <Col span={12} justify='center' align='middle' key={`${mapId}-${index}`}>
+                                
+                                    <h2 className="charts-title">{chart.content}</h2>
 
-                    {/* <Pie data={data} /> */}
-                </Col>
-
-                <Col span={12} justify='center' align='middle'>
-                    
-                    <h2 className="charts-title">Sur quelle magasin d'application achetez-vous des contenus VR ?</h2>
-
-                    {/* <Pie data={data} /> */}
-                </Col>
-            </Row>
+                                    <Pie data={renderChart(chart)} />
+                                </Col>
+                            );
+                        })
+                    }
+                </Row>
+            }
         </div>
     );
 };
