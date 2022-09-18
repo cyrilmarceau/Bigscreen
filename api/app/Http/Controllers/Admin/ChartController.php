@@ -75,7 +75,8 @@ class ChartController extends Controller
 
         $response = [
             "content" => $question->content,
-            "stats" => $stats
+            "stats" => $stats,
+            "type" => "pie"
         ];
 
         return $response;
@@ -99,7 +100,8 @@ class ChartController extends Controller
 
         $response = [
             "content" => $question->content,
-            "stats" => $stats
+            "stats" => $stats,
+            "type" => "pie"
         ];
 
         return $response;
@@ -122,7 +124,8 @@ class ChartController extends Controller
 
         $response = [
             "content" => $question->content,
-            "stats" => $stats
+            "stats" => $stats,
+            "type" => "pie"
         ];
 
         return $response;

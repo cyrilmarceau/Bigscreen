@@ -43,6 +43,16 @@ class Helper {
     static formatDate(date) {
         return moment(date).format('DD/MM/YYYY à HH:mm:ss');
     }
+
+    static parseQuestionOption(answer) {
+        if (answer.question.type === 'A') {
+            const questionOptions = JSON.parse(answer.question.options);
+
+            return questionOptions.find((option) => option.key === answer.content).value;
+        }
+
+        return answer.content;
+    }
 }
 
 export default Helper;

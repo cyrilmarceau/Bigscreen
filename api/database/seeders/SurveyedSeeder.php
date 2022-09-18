@@ -21,7 +21,7 @@ class SurveyedSeeder extends Seeder
 
         Surveyed::factory(5)->create()->each(function($surveyed)  use ($questions)  {
 
-            foreach($questions as $question) {
+            foreach($questions as $key => $question) {
 
                 $relationship = [
                     'question_id' => $question->id,
@@ -42,7 +42,7 @@ class SurveyedSeeder extends Seeder
                     case 'B':
                         Answer::create([
                             ...$relationship,
-                            'content' => fake()->sentence(3)
+                            'content' => $key === 0 ? fake()->freeEmail() : fake()->sentence(3)
                         ]);
                         break;
 
