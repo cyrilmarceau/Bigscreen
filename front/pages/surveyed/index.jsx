@@ -60,7 +60,7 @@ const ClientSurveyedFormPage = () => {
     return (
         <div className='surveyed-index'>
             <Row justify='center' className='page-container'>
-                <Col span={16} justify='center' align='middle'>
+                <Col span={24} justify='center' align='middle'>
                     {!isNil(questions) ? (
                         <SurveyedForm submitSurveyed={submitSurveyed} questions={questions} />
                     ) : (

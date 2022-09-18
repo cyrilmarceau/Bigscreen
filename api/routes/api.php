@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminQuestionController;
-use App\Http\Controllers\Admin\ChartController;
+use App\Http\Controllers\Admin\AdminSurveyedController;
+use App\Http\Controllers\Admin\AdminChartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\ClientQuestionController;
-use App\Http\Controllers\SurveyedController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Client\ClientSurveyedController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,29 +19,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-/** AUTH */
+/** NON AUTHENTICATED ROUTE */
 Route::controller(AuthController::class)->group(function(){
     Route::post('login', 'login');
 });
 
+Route::apiResource('client/questions', ClientQuestionController::class);
+Route::apiResource('client/surveyeds', ClientSurveyedController::class);
 
+
+/** AUTHENTICATED ROUTE */
 Route::middleware(['auth:sanctum'])->group( function () {
 
     Route::controller(AuthController::class)->group(function(){
-        Route::post('logout', 'logout');
+        Route::post('admin/logout', 'logout');
     });
 
-    Route::controller(ChartController::class)->group(function(){
-        Route::get('charts', 'charts');
+    Route::controller(AdminChartController::class)->group(function(){
+        Route::get('admin/charts', 'charts');
     });
+
+    Route::apiResource('admin/questions', AdminQuestionController::class);
+
+    Route::apiResource('admin/surveyeds', AdminSurveyedController::class);
 
 });
 
-Route::apiResource('admin/questions', AdminQuestionController::class);
-Route::apiResource('client/questions', ClientQuestionController::class);
 
-Route::apiResource('surveyeds', SurveyedController::class);

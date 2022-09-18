@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 use function PHPSTORM_META\type;
 
-class ChartController extends Controller
+class AdminChartController extends Controller
 {
     public function charts()
     {
