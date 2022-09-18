@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminLayout from '~/components/layout/admin/AdminLayout';
 import { Row, Col } from 'antd';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -8,10 +8,18 @@ import API from '~/api';
 
 const AdminHomePage = () => {
 
-
-
-
     ChartJS.register(ArcElement, Tooltip, Legend);
+
+    const ChartColorList = [
+        {background: 'rgba(255, 99, 132, 0.2)', border: 'rgba(255, 99, 132, 1)'},
+        {background: 'rgba(54, 162, 235, 0.2)', border: 'rgba(54, 162, 235, 1)'},
+        {background: 'rgba(255, 206, 86, 0.2)', border: 'rgba(255, 206, 86, 1)'},
+        {background: 'rgba(75, 192, 192, 0.2)', border: 'rgba(75, 192, 192, 1)'},
+        {background: 'rgba(153, 102, 255, 0.2)', border: 'rgba(153, 102, 255, 1)'},
+        {background: 'rgba(255, 159, 64, 0.2)', border: 'rgba(255, 159, 64, 1)'}
+    ]
+
+    const [charts, setCharts] = useState(null);
 
     useEffect(() => {
 
@@ -20,10 +28,46 @@ const AdminHomePage = () => {
 
     const getCharts = async () => {
 
+        const response = await API.getCharts();
 
-        const charts = await API.getCharts();
-        console.log(charts);
+        setCharts(response);
     }
+
+    const renderPie = () => {
+
+    }
+
+    const renderRadar = () => {
+        
+    }
+
+    const renderChart = () => {
+
+    }
+
+    // let chartsState = {...charts};
+
+    // response.forEach(data => {
+
+    //     for(response in data.stats) {
+
+    //         chartsState.labels.push(response);
+    //         chartsState.datasets[0].data.push(data.stats[response])
+    //     }
+    // })
+
+    // {
+    //     labels: [],
+    //     datasets: [
+    //       {
+    //         label: '# of Votes',
+    //         data: [],
+    //         backgroundColor: [],
+    //         borderColor: [],
+    //         borderWidth: 1,
+    //       },
+    //     ]
+    // }
 
     // const data = {
     //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
