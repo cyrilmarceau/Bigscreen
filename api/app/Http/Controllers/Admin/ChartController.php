@@ -18,13 +18,9 @@ class ChartController extends Controller
         $questionSeven = self::questionSeven();
         $questionTen = self::questionTen();
 
-        $results = [
-            'six' => $questionSix,
-            'seven' => $questionSeven,
-            'ten' => $questionTen
-        ];
+        $result = [$questionSix, $questionSeven, $questionTen];
 
-        return $this->sendResponse($results, null);
+        return $this->sendResponse($result, null);
     }
     
     /**
@@ -47,12 +43,12 @@ class ChartController extends Controller
     }
     
     /**
-     * getAnswerCount
+     * getAnswerStats
      * return an array of count value
      * @param  mixed $answers
      * @return array
      */
-    private static function getAnswerCount(array $answers): array
+    private static function getAnswerStats(array $answers): array
     {
         $values = [];
         foreach ($answers as $answer) {
@@ -75,9 +71,14 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $count = self::getAnswerCount($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer);
 
-        return $count;
+        $response = [
+            "content" => $question->content,
+            "stats" => $stats
+        ];
+
+        return $response;
        
     }
     
@@ -93,9 +94,15 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $count = self::getAnswerCount($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer);
 
-        return $count;
+
+        $response = [
+            "content" => $question->content,
+            "stats" => $stats
+        ];
+
+        return $response;
     }
     
     /**
@@ -110,9 +117,15 @@ class ChartController extends Controller
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
 
-        $count = self::getAnswerCount($uniqueAnswer);
+        $stats = self::getAnswerStats($uniqueAnswer);
 
-        return $count;
+
+        $response = [
+            "content" => $question->content,
+            "stats" => $stats
+        ];
+
+        return $response;
     }
     
     /**
