@@ -40,7 +40,7 @@ class Question extends Model
      * return question by ID
      * @return object
      */
-    public static function getByID($id)
+    public static function getById($id)
     {
         // $question = Question::find($id);
         $question = Question::with(['answers'])->where('id', $id)->first();

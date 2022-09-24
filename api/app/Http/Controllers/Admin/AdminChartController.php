@@ -51,7 +51,7 @@ class AdminChartController extends Controller
      */
     private static function getAnswerStats(array $answers, Question $question): array
     {
-        // dd($question->options);
+
         $options = json_decode($question->options);
 
         $values = [];
@@ -81,7 +81,7 @@ class AdminChartController extends Controller
      */
     private static function getQuestionSix()
     {
-        $question = Question::getByID(6);
+        $question = Question::getById(6);
         $answers = $question->answers()->get();
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
@@ -107,7 +107,7 @@ class AdminChartController extends Controller
      */
     private static function getQuestionSeven()
     {
-        $question = Question::getByID(7);
+        $question = Question::getById(7);
         $answers = $question->answers()->get();
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
@@ -131,7 +131,7 @@ class AdminChartController extends Controller
      */
     private static function getQuestionTen()
     {
-        $question = Question::getByID(10);
+        $question = Question::getById(10);
         $answers = $question->answers()->get();
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
@@ -157,17 +157,20 @@ class AdminChartController extends Controller
     {
         $stats = [];
 
+        $labelList = [
+            11 => "Image",
+            12 => "Confort d'utilisation",
+            13 => "Connexion réseau",
+            14 => "Graphisme",
+            15 => "Audio"
+        ];
+
         for($i = 11; $i < 15; $i++)
         {
-            $total = 0;
-            $question = Question::getByID($i);
-            $answers = $question->answers()->get();
+            $question = Question::getById($i);
+            $answersAverage = $question->answers()->get()->avg('content');
 
-            foreach($answers as $answer) {
-                $total += $answer->content;
-            }
-
-            array_push($stats, ["content" => $question->content, "average" => round($total / count($answers), 2)]);
+            $stats[$labelList[$i]] = $answersAverage;
         }
 
         $response = [
