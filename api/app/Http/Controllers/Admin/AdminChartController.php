@@ -15,10 +15,11 @@ class AdminChartController extends Controller
     {
 
         $questionSix = self::getQuestionSix();
-        $questionSeven = self::questionSeven();
-        $questionTen = self::questionTen();
+        $questionSeven = self::getQuestionSeven();
+        $questionTen = self::getQuestionTen();
+        $questionElevenToFifteen = self::getQuestionElevenToFifteen();
 
-        $result = [$questionSix, $questionSeven, $questionTen];
+        $result = [$questionSix, $questionSeven, $questionTen, $questionElevenToFifteen];
 
         return $this->sendResponse($result, null);
     }
@@ -61,7 +62,7 @@ class AdminChartController extends Controller
 
                 foreach ($options as $option) {
                     if($option->key === $answer){
-                            $values[$option->value] = $contentCount;  
+                        $values[$option->value] = $contentCount;  
                     }
                 }
 
@@ -104,7 +105,7 @@ class AdminChartController extends Controller
      * get all answers from question seven
      * @return void
      */
-    private static function questionSeven()
+    private static function getQuestionSeven()
     {
         $question = Question::getByID(7);
         $answers = $question->answers()->get();
@@ -128,7 +129,7 @@ class AdminChartController extends Controller
      * Get all anwers from question ten
      * @return void
      */
-    private static function questionTen()
+    private static function getQuestionTen()
     {
         $question = Question::getByID(10);
         $answers = $question->answers()->get();
@@ -152,8 +153,28 @@ class AdminChartController extends Controller
      * Get all answer from question Eleven to fifteen
      * @return void
      */
-    private static function questionElevenToFifteen()
+    private static function getQuestionElevenToFifteen()
     {
-        
+        $stats = [];
+
+        for($i = 11; $i < 15; $i++)
+        {
+            $total = 0;
+            $question = Question::getByID($i);
+            $answers = $question->answers()->get();
+
+            foreach($answers as $answer) {
+                $total += $answer->content;
+            }
+
+            array_push($stats, ["content" => $question->content, "average" => round($total / count($answers), 2)]);
+        }
+
+        $response = [
+            "stats" => $stats,
+            "type" => "radar"
+        ];
+
+        return $response;
     }
 }

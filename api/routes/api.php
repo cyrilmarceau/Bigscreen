@@ -44,5 +44,3 @@ Route::middleware(['auth:sanctum'])->group( function () {
     Route::apiResource('admin/surveyeds', AdminSurveyedController::class);
 
 });
-
-
