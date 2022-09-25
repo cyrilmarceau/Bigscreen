@@ -44,6 +44,6 @@ class StoreSurveyedRequest extends FormRequest
             'success'   => false,
             'message'   => 'Erreur de validation du formulaire',
             'data'      => $validator->errors()
-        ]));
+        ], 400));
     }
 }
