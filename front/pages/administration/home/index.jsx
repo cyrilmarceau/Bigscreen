@@ -20,7 +20,8 @@ const AdminHomePage = () => {
             const response = await API.getCharts();
 
             if (response.success) {
-                setCharts(response.data);
+                // setCharts(response.data);
+                console.log(response.data);
             }
         } catch (error) {
             return;

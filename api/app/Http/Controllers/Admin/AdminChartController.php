@@ -55,6 +55,7 @@ class AdminChartController extends Controller
         $options = json_decode($question->options);
 
         $values = [];
+
         foreach ($answers as $answer) {
             $contentCount = Answer::countByContent($answer);
             
@@ -62,15 +63,26 @@ class AdminChartController extends Controller
 
                 foreach ($options as $option) {
                     if($option->key === $answer){
-                        $values[$option->value] = $contentCount;  
+                        
+                        // $values[$option->value] = $contentCount;  
+                        $res = [
+                            "label" => $option->value,
+                            "count" => $contentCount
+                        ];
+                        $values = $res;
                     }
                 }
 
             } else {
-                $values[$answer] = $contentCount;  
+                $res = [
+                    "label" => $answer,
+                    "count" => $contentCount
+                ];
+                $values = $res;
+                // $values[$answer] = $contentCount;  
             }
         }
-
+        
         return $values;
     }
     
@@ -88,8 +100,6 @@ class AdminChartController extends Controller
 
         $stats = self::getAnswerStats($uniqueAnswer, $question);
 
-        // dd($question->options);
-        // dd(array_search('occulus_rift/s', json_decode($question->options)));
         $response = [
             "content" => $question->content,
             "stats" => $stats,
@@ -165,12 +175,14 @@ class AdminChartController extends Controller
             15 => "Audio"
         ];
 
-        for($i = 11; $i < 15; $i++)
-        {
-            $question = Question::getById($i);
+        foreach ($labelList as $key => $value) {
+            $question = Question::getById($key);
             $answersAverage = $question->answers()->get()->avg('content');
 
-            $stats[$labelList[$i]] = $answersAverage;
+            $stats[] = [
+                "label" => $value,
+                "count" =>  $answersAverage
+            ];
         }
 
         $response = [

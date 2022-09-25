@@ -13,6 +13,7 @@ function BigscreenApp({ Component, pageProps }) {
     const router = useRouter();
 
     useEffect(() => {
+        console.log(pageProps);
         if (pageProps.protected && !isAuthenticated) {
             router.push('/administration');
         }
