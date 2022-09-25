@@ -6,23 +6,19 @@ import { useAuth } from '~/contexts/AuthContext';
 import { useEffect } from 'react';
 
 const LoginPage = () => {
-
     const router = useRouter();
     const auth = useAuth();
 
     const login = async (values) => {
-
         try {
-
             const response = await API.login(values);
 
             if (response.success) {
-
                 const { token } = response.data;
 
                 Helper.setItem('authToken', token);
-                
-                await auth.changeAuthenticationState(true);
+
+                auth.setIsAuthenticated(true);
 
                 router.push('/administration/home');
             }

@@ -8,7 +8,6 @@ import Helper from '~/helpers';
 import { useAuth } from '~/contexts/AuthContext';
 
 const HeaderBS = () => {
-
     const router = useRouter();
     const auth = useAuth();
 
@@ -16,20 +15,16 @@ const HeaderBS = () => {
 
     const logout = async () => {
         try {
-
             const result = await API.logout();
 
             if (result.success) {
-
                 Helper.removeItem('authToken');
 
-                auth.setAuthenticationState(false);
+                auth.setIsAuthenticated(false);
 
-                router.push('/administration');    
+                router.push('/administration');
             }
-
         } catch (error) {
-
             console.log('err', error);
 
             return;

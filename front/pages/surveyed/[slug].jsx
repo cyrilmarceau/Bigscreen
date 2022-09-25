@@ -68,6 +68,14 @@ const ClientSurveyedPage = () => {
 
 export default ClientSurveyedPage;
 
+export async function getStaticProps(context) {
+    return {
+        props: {
+            protected: false,
+        },
+    };
+}
+
 ClientSurveyedPage.getLayout = function getLayout(page) {
     return <DefaultLayout>{page}</DefaultLayout>;
 };

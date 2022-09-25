@@ -2,6 +2,7 @@ import Helper from '~/helpers';
 import _ from 'lodash';
 import axios from 'axios';
 import { message as messageAntd } from 'antd';
+import { useRouter } from 'next/router';
 
 class APIFactory {
     constructor(publicApiUrl, prefix) {

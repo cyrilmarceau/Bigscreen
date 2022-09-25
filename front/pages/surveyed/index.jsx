@@ -74,6 +74,14 @@ const ClientSurveyedFormPage = () => {
     );
 };
 
+export async function getStaticProps(context) {
+    return {
+        props: {
+            protected: false,
+        },
+    };
+}
+
 export default ClientSurveyedFormPage;
 
 ClientSurveyedFormPage.getLayout = function getLayout(page) {

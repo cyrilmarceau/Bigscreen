@@ -89,6 +89,14 @@ const AdminHomePage = () => {
     );
 };
 
+export async function getStaticProps(context) {
+    return {
+        props: {
+            protected: true,
+        },
+    };
+}
+
 export default AdminHomePage;
 
 AdminHomePage.getLayout = function getLayout(page) {

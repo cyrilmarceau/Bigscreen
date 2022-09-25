@@ -1,34 +1,24 @@
-import { useRouter } from "next/router";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { useRouter } from 'next/router';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
+const AuthContext = createContext(null);
 
-const AuthContext = createContext();
+// const AuthProvider = ({ children }) => {
+//     const router = useRouter();
 
-const AuthProvider = ({ children }) => {
+//     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    const router = useRouter();
+//     return (
+//         <AuthContext.Provider
+//             value={{
+//                 isAuthenticated: isAuthenticated,
+//                 setIsAuthenticated: setIsAuthenticated,
+//             }}>
+//             {children}
+//         </AuthContext.Provider>
+//     );
+// };
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+const useAuth = () => useContext(AuthContext);
 
-    const changeAuthenticationState = async (state) => {
-        setIsAuthenticated(state);
-    };
-
-
-
-    return (
-        <AuthContext.Provider
-            value={{
-                isAuthenticated: isAuthenticated,
-                setIsAuthenticated: setIsAuthenticated,
-                changeAuthenticationState: changeAuthenticationState,
-            }}
-        >
-         {children}
-        </AuthContext.Provider>
-    );
-}
-
-const useAuth = () => useContext(AuthContext)
-
-export { AuthProvider, useAuth };
+export { useAuth, AuthContext };

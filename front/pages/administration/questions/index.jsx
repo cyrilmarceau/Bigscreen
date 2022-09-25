@@ -45,6 +45,14 @@ const AdminQuestionsPage = () => {
     return <Table columns={columns} dataSource={questions} />;
 };
 
+export async function getStaticProps(context) {
+    return {
+        props: {
+            protected: true,
+        },
+    };
+}
+
 export default AdminQuestionsPage;
 
 AdminQuestionsPage.getLayout = function getLayout(page) {
