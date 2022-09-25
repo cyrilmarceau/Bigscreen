@@ -15,10 +15,11 @@ class AdminChartController extends Controller
     {
 
         $questionSix = self::getQuestionSix();
-        $questionSeven = self::questionSeven();
-        $questionTen = self::questionTen();
+        $questionSeven = self::getQuestionSeven();
+        $questionTen = self::getQuestionTen();
+        $questionElevenToFifteen = self::getQuestionElevenToFifteen();
 
-        $result = [$questionSix, $questionSeven, $questionTen];
+        $result = [$questionSix, $questionSeven, $questionTen, $questionElevenToFifteen];
 
         return $this->sendResponse($result, null);
     }
@@ -50,7 +51,7 @@ class AdminChartController extends Controller
      */
     private static function getAnswerStats(array $answers, Question $question): array
     {
-        // dd($question->options);
+
         $options = json_decode($question->options);
 
         $values = [];
@@ -61,7 +62,7 @@ class AdminChartController extends Controller
 
                 foreach ($options as $option) {
                     if($option->key === $answer){
-                            $values[$option->value] = $contentCount;  
+                        $values[$option->value] = $contentCount;  
                     }
                 }
 
@@ -80,7 +81,7 @@ class AdminChartController extends Controller
      */
     private static function getQuestionSix()
     {
-        $question = Question::getByID(6);
+        $question = Question::getById(6);
         $answers = $question->answers()->get();
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
@@ -104,9 +105,9 @@ class AdminChartController extends Controller
      * get all answers from question seven
      * @return void
      */
-    private static function questionSeven()
+    private static function getQuestionSeven()
     {
-        $question = Question::getByID(7);
+        $question = Question::getById(7);
         $answers = $question->answers()->get();
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
@@ -128,9 +129,9 @@ class AdminChartController extends Controller
      * Get all anwers from question ten
      * @return void
      */
-    private static function questionTen()
+    private static function getQuestionTen()
     {
-        $question = Question::getByID(10);
+        $question = Question::getById(10);
         $answers = $question->answers()->get();
         
         $uniqueAnswer = self::removeDupplicateValue($answers);
@@ -152,8 +153,31 @@ class AdminChartController extends Controller
      * Get all answer from question Eleven to fifteen
      * @return void
      */
-    private static function questionElevenToFifteen()
+    private static function getQuestionElevenToFifteen()
     {
-        
+        $stats = [];
+
+        $labelList = [
+            11 => "Image",
+            12 => "Confort d'utilisation",
+            13 => "Connexion réseau",
+            14 => "Graphisme",
+            15 => "Audio"
+        ];
+
+        for($i = 11; $i < 15; $i++)
+        {
+            $question = Question::getById($i);
+            $answersAverage = $question->answers()->get()->avg('content');
+
+            $stats[$labelList[$i]] = $answersAverage;
+        }
+
+        $response = [
+            "stats" => $stats,
+            "type" => "radar"
+        ];
+
+        return $response;
     }
 }
