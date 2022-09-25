@@ -35,7 +35,6 @@ const AdminHomePage = () => {
 
             if (response.success) {
                 setCharts(response.data);
-                console.log(response.data);
             }
         } catch (error) {
             return;
