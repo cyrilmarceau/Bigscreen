@@ -53,6 +53,8 @@ const ClientSurveyedFormPage = () => {
         }
     };
 
+    const submitFailed = () => message.error("Erreur de validation du questionnaire: Veuillez répondre à l'ensemble des questions");
+
     useEffect(() => {
         getClientQuestions();
     }, []);
@@ -62,7 +64,7 @@ const ClientSurveyedFormPage = () => {
             <Row justify='center' className='page-container'>
                 <Col span={24} justify='center' align='middle'>
                     {!isNil(questions) ? (
-                        <SurveyedForm submitSurveyed={submitSurveyed} questions={questions} />
+                        <SurveyedForm submitSurveyed={submitSurveyed} submitFailed={submitFailed} questions={questions} />
                     ) : (
                         <div className='loading-view'>
                             <Empty description="Aucune question n'a été trouvé !" />
