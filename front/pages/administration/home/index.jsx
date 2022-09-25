@@ -1,12 +1,25 @@
 import React, { useEffect, useId, useState } from 'react';
 import AdminLayout from '~/components/layout/admin/AdminLayout';
 import { Row, Col } from 'antd';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie, Radar } from 'react-chartjs-2';
 import API from '~/api';
 
 const AdminHomePage = () => {
-    ChartJS.register(ArcElement, Tooltip, Legend);
+    
+    ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, ArcElement, Tooltip, Legend);
+
+    const radarOption = {
+        scales: {
+            r: {
+                suggestedMin: 0,
+                suggestedMax: 5,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    };
 
     const mapId = useId();
     const [charts, setCharts] = useState(null);
@@ -16,11 +29,12 @@ const AdminHomePage = () => {
     }, []);
 
     const getCharts = async () => {
+
         try {
             const response = await API.getCharts();
 
             if (response.success) {
-                // setCharts(response.data);
+                setCharts(response.data);
                 console.log(response.data);
             }
         } catch (error) {
@@ -29,6 +43,7 @@ const AdminHomePage = () => {
     };
 
     const renderPie = (chart) => {
+
         const pieColors = [
             { background: 'rgba(255, 99, 132, 0.2)', border: 'rgba(255, 99, 132, 1)' },
             { background: 'rgba(54, 162, 235, 0.2)', border: 'rgba(54, 162, 235, 1)' },
@@ -51,36 +66,67 @@ const AdminHomePage = () => {
             ],
         };
 
-        const index = 0;
+        chart.stats.forEach((data, index) => {
 
-        for (const response in chart.stats) {
-            pieData.labels.push(response);
-            pieData.datasets[0].data.push(chart.stats[response]);
+            pieData.labels.push(data.label);
+            pieData.datasets[0].data.push(data.count);
             pieData.datasets[0].backgroundColor.push(pieColors[index].background);
             pieData.datasets[0].borderColor.push(pieColors[index].border);
-
-            index++;
-        }
+        })
 
         return pieData;
     };
 
-    const renderRadar = () => {};
+    const renderRadar = (chart) => {
 
-    const renderChart = (chart) => (chart.type === 'pie' ? renderPie(chart) : renderRadar());
+        const radarData = {
+            labels: [],
+            datasets: [
+                {
+                    label: 'Satisfaction moyenne client',
+                    data: [],
+                    fill: true,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    pointBackgroundColor: 'rgb(255, 99, 132)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(255, 99, 132)'
+                },
+            ],
+        };
+
+        chart.stats.forEach(data => {
+
+            radarData.labels.push(data.label);
+            radarData.datasets[0].data.push(data.count);
+        })
+
+        return radarData;
+    };
 
     return (
         <div className='home'>
+            
             <h1 className='home-page-title'>Statistiques des sondages</h1>
 
             {charts && (
-                <Row gutter={16} justify='start' className='charts-container'>
-                    {charts.map((chart, index) => {
-                        return (
-                            <Col span={12} justify='center' align='middle' key={`${mapId}-${index}`}>
-                                <h2 className='charts-title'>{chart.content}</h2>
 
-                                <Pie data={renderChart(chart)} />
+                <Row gutter={[32, 32]} justify='center' className='charts-row'>
+
+                    {charts.map((chart, index) => {
+
+                        return (
+                            <Col className="chart-col" xs={24} lg={12} justify='center' align='middle' key={`${mapId}-${index}`}>
+
+                                <div className="chart-container">
+
+                                    <h2 className='chart-title'>{chart.type === "pie" ? chart.content : "Statistiques qualité"}</h2>
+
+                                    <div className="chart">
+                                        {chart.type === "pie" ? <Pie data={renderPie(chart)} /> : <Radar data={renderRadar(chart)} options={radarOption}  />}
+                                    </div>
+                                </div>
                             </Col>
                         );
                     })}

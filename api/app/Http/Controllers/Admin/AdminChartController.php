@@ -69,7 +69,7 @@ class AdminChartController extends Controller
                             "label" => $option->value,
                             "count" => $contentCount
                         ];
-                        $values = $res;
+                        $values[] = $res;
                     }
                 }
 
@@ -79,7 +79,6 @@ class AdminChartController extends Controller
                     "count" => $contentCount
                 ];
                 $values = $res;
-                // $values[$answer] = $contentCount;  
             }
         }
         
