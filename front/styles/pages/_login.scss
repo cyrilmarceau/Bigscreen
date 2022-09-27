@@ -9,10 +9,15 @@
             background-color: rgb(241, 245, 249);
             height: 100vh;
         
-            .login-form-title {
+            .big-screen-logo {
 
-                margin-bottom: 2rem;
-                font-size: 2rem;
+                width: 18rem;
+                margin-bottom: 1rem;
+
+                & > img {
+
+                    width: 100%;
+                }
             }
 
             .login-form-paragraph {
@@ -31,13 +36,15 @@
 
 @media screen and (max-width: 576px) {
 
-    .login-form-container {
 
-        background-color: white;
+    .login-form-card {
 
-        .login-form-card {
+        background-color: transparent !important;
+        box-shadow: unset !important;
 
-            box-shadow: unset !important;
+        .big-screen-logo {
+
+            width: 15rem !important;
         }
     }
 }

@@ -34,7 +34,9 @@ const SiderBS = () => {
                 top: 0,
                 bottom: 0,
             }}>
-            <div className='logo' />
+            <div className='big-screen-logo'>  
+                <img src="/big-screen-light.png" alt="Big Screen" />
+            </div>
             <Menu theme='dark' mode='inline' defaultSelectedKeys={['4']} onClick={(el) => router.push(el.key)} items={items} />
         </Sider>
     );

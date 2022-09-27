@@ -31,8 +31,11 @@ const LoginPage = () => {
         <div className='login'>
             <div className='page-container'>
                 <Row justify='center' align='middle' className='login-form-container'>
-                    <Col xs={24} sm={16} lg={8} justify='center' align='middle' className='card'>
-                        <h1 className='login-form-title'>Big Screen</h1>
+                    <Col xs={24} sm={16} lg={8} justify='center' align='middle' className='card login-form-card'>
+                        
+                        <div className='big-screen-logo'>  
+                            <img src="/big-screen-dark.png" alt="Big Screen" />
+                        </div>
 
                         <p className='login-form-paragraph'>Me connecter</p>
 
