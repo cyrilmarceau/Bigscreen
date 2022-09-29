@@ -12,6 +12,14 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 
+        
+    /**
+     * sendResponse
+     *  return successfull response
+     * @param  mixed $result
+     * @param  mixed $message
+     * @return \Illuminate\Http\Response
+     */
     public function sendResponse($result, $message)
     {
     	$response = [

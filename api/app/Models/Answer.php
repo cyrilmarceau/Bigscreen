@@ -23,10 +23,21 @@ class Answer extends Model
         'surveyed_id'
     ];
 
+        
+    /**
+     * question
+     * Relationship associate to question
+     * @return void
+     */
     public function question() {
         return $this->belongsTo(Question::class);
     }
-
+    
+    /**
+     * surveyed
+     * Relationship associate to surveyed
+     * @return void
+     */
     public function surveyed() {
         return $this->belongsTo(Surveyed::class);
     }

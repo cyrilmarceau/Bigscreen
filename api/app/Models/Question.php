@@ -20,6 +20,12 @@ class Question extends Model
         'updated_at'
     ];
 
+        
+    /**
+     * answers
+     * relationship associate to answers
+     * @return void
+     */
     public function answers() {
         return $this->hasMany(Answer::class);
     }

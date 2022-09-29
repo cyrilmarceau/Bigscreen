@@ -11,6 +11,12 @@ use function PHPSTORM_META\type;
 
 class AdminChartController extends Controller
 {
+        
+    /**
+     * charts
+     * return a json with all charts
+     * @return void
+     */
     public function charts()
     {
 
@@ -159,7 +165,7 @@ class AdminChartController extends Controller
     
     /**
      * questionElevenToFifteen
-     * Get all answer from question Eleven to fifteen
+     * Get all answer from question eleven to fifteen
      * @return void
      */
     private static function getQuestionElevenToFifteen()

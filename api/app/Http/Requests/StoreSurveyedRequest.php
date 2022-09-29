@@ -30,6 +30,12 @@ class StoreSurveyedRequest extends FormRequest
         ];
     }
 
+        
+    /**
+     * messages
+     * Return custom messages if validation failed
+     * @return array<string, mixed>
+     */
     public function messages()
     {
         return [
@@ -38,7 +44,14 @@ class StoreSurveyedRequest extends FormRequest
         ];
     }
 
-     public function failedValidation(Validator $validator)
+        
+    /**
+     * failedValidation
+     * Return json response if validator failed
+     * @param  mixed $validator
+     * @return void
+     */
+    public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
             'success'   => false,
