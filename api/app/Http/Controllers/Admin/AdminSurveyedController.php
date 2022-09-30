@@ -16,9 +16,11 @@ class AdminSurveyedController extends Controller
     {
         $surveyeds = Surveyed::getAllWithRelation(['answers', 'answers.question']);
 
-        $message = empty($surveyeds) ? "Aucun sondé n'a été trouvé" : "Liste des sondés récupérés avec succès";
+        if(empty($surveyeds)) {
+            return $this->sendError('Aucun sondé n\'a été trouvé', null, 404);
+        }
 
-        return $this->sendResponse($surveyeds, $message);
+        return $this->sendResponse($surveyeds, "Liste des sondés récupérés avec succès");
     }
 
     /**

@@ -46,6 +46,10 @@ class Surveyed extends Model
     {
         $surveyeds = self::getAll();
 
+        if($surveyeds->isEmpty()) {
+            return null;
+        }
+
         $surveyedsWithRelations = $surveyeds->toQuery()->with($relationships)->get();
 
         return $surveyedsWithRelations;

@@ -39,7 +39,7 @@ class ClientSurveyedController extends Controller
         $checkEmail = Surveyed::getByMail($email);
 
         if(!empty($checkEmail)) {
-            return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 405);
+            return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 422);
         }
 
         $surveyed = Surveyed::create([
