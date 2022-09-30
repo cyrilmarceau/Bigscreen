@@ -72,8 +72,12 @@ class QuestionSeeder extends Seeder
                 'type' => 'A',
                 'options' => json_encode([
                     [
-                        "key" => "occulus_rift/s",
-                        "value" => "Occulus Rift/s"
+                        "key" => "oculus_quest",
+                        "value" => "Oculus Quest"
+                    ],
+                    [
+                        "key" => "oculus_rift/s",
+                        "value" => "Oculus Rift/s"
                     ],
                     [
                         "key" => "htc_vive",
@@ -84,8 +88,8 @@ class QuestionSeeder extends Seeder
                         "value" => "Windows Mixed Reality"
                     ],
                     [
-                        "key" => "psvr",
-                        "value" => "PSVR"
+                        "key" => "valve_index",
+                        "value" => "Valve index"
                     ]
                 ]),
                 'created_at' => now()
@@ -106,14 +110,6 @@ class QuestionSeeder extends Seeder
                     [
                         "key" => "viveport",
                         "value" => "Viveport"
-                    ],
-                    [
-                        "key" => "playstation_vr",
-                        "value" => "Playstation VR"
-                    ],
-                    [
-                        "key" => "google_play",
-                        "value" => "Google Play"
                     ],
                     [
                         "key" => "windows_store",
@@ -140,6 +136,10 @@ class QuestionSeeder extends Seeder
                         "value" => "HTC Vive Pro"
                     ],
                     [
+                        "key" => "psvr",
+                        "value" => "PSVR"
+                    ],
+                    [
                         "key" => "others",
                         "value" => "Autre"
                     ],
@@ -164,11 +164,15 @@ class QuestionSeeder extends Seeder
                 'options' => json_encode([
                     [
                         "key" => "tv_watch",
-                        "value" => "regarder des émissions TV en direct"
+                        "value" => "regarder la TV en direct"
                     ],
                     [
                         "key" => "movie_watch",
                         "value" => "regarder des films"
+                    ],
+                    [
+                        "key" => "work",
+                        "value" => "travailler"
                     ],
                     [
                         "key" => "solo_play",
@@ -197,7 +201,7 @@ class QuestionSeeder extends Seeder
             ],
             [
                 'title' => '13/20',
-                'content' => 'Combien donnez vous de point pour la connection réseau de Bigscreen ?',
+                'content' => 'Combien donnez vous de point pour la connexion réseau de Bigscreen ?',
                 'type' => 'C',
                 'options' => null,
                 'created_at' => now()
