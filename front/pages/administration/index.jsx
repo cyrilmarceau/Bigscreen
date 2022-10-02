@@ -2,12 +2,10 @@ import { Row, Col, Button, Form, Input } from 'antd';
 import API from '~/api';
 import Helper from '~/helpers';
 import { useRouter } from 'next/router';
-import { useAuth } from '~/contexts/AuthContext';
-import { useEffect } from 'react';
 
 const LoginPage = () => {
+
     const router = useRouter();
-    const auth = useAuth();
 
     const login = async (values) => {
         try {
@@ -17,8 +15,6 @@ const LoginPage = () => {
                 const { token } = response.data;
 
                 Helper.setItem('authToken', token);
-
-                auth.setIsAuthenticated(true);
 
                 router.push('/administration/home');
             }

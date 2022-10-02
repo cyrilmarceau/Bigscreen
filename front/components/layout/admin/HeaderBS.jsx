@@ -5,12 +5,10 @@ const { Header } = Layout;
 import { useRouter } from 'next/router';
 import API from '~/api';
 import Helper from '~/helpers';
-import { useAuth } from '~/contexts/AuthContext';
 
 const HeaderBS = () => {
-    const router = useRouter();
-    const auth = useAuth();
 
+    const router = useRouter();
     const [open, setOpen] = useState(false);
 
     const logout = async () => {
@@ -18,9 +16,8 @@ const HeaderBS = () => {
             const result = await API.logout();
 
             if (result.success) {
-                Helper.removeItem('authToken');
 
-                auth.setIsAuthenticated(false);
+                Helper.removeItem('authToken');
 
                 router.push('/administration');
             }
