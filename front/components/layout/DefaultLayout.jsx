@@ -7,7 +7,7 @@ const { Content } = Layout;
 const DefaultLayout = ({ children }) => {
     return (
         <Layout className='layout'>
-            <Content style={{ padding: '50px 50px', minHeight: '93vh', overflowY: 'scroll', maxHeight: '100vh' }}>
+            <Content style={{ padding: '50px 50px' }}>
                 <div className='site-layout-content'>{children}</div>
             </Content>
             <FooterBS />
