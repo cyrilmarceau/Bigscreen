@@ -4,7 +4,7 @@ import { Row, Col, Card } from 'antd';
 
 const CardQuestion = ({ title, content, span = 24, children }) => {
     return (
-        <Col span={span} justify='center' align='start' style={span < 24 ? { margin: 'auto' } : null}>
+        <Col xs={span} md={14} lg={14} xl={14} xxl={14} justify='center' align='start' style={{ margin: 'auto' }}>
             <Card
                 title={`Question ${title}`}
                 headStyle={{ fontWeight: 'bold' }}

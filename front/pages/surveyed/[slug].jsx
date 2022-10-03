@@ -45,7 +45,16 @@ const ClientSurveyedPage = () => {
     return (
         !isNil(surveyed) && (
             <Row>
-                <Col span={14} justify='center' align='middle' className='card header-card' style={{ margin: 'auto', marginBottom: 30 }}>
+                <Col
+                    xs={14}
+                    md={14}
+                    lg={14}
+                    xl={14}
+                    xxl={14}
+                    justify='center'
+                    align='middle'
+                    className='card header-card'
+                    style={{ margin: 'auto', marginBottom: 30 }}>
                     <h1 className='surveyed-form-title'>Big Screen</h1>
 
                     <h2 className='surveyed-form-paragraph'>
@@ -54,7 +63,7 @@ const ClientSurveyedPage = () => {
                 </Col>
                 {surveyed?.answers?.map((el) => {
                     return (
-                        <CardQuestion span={14} key={el.id} title={el?.question?.title} content={el?.question?.content}>
+                        <CardQuestion key={el.id} title={el?.question?.title} content={el?.question?.content}>
                             <div style={{ borderStyle: 'dashed', marginTop: 15, padding: 10 }}>
                                 <span>{Helper.parseQuestionOption(el)}</span>
                             </div>
