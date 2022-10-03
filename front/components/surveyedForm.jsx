@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, InputNumber, Row, Select, Modal, message } from 'antd';
+import { Button, Col, Form, Input, InputNumber, Row, Select, Radio } from 'antd';
 import React, { useId } from 'react';
 import API from '~/api';
 
@@ -6,10 +6,23 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed }) => {
     const mapId = useId();
 
     const renderInput = (question) => {
+
         if (question.type === 'A') {
+
             const answerOptions = JSON.parse(question.options);
 
-            return (
+            if(answerOptions.length === 2) {
+
+                return (
+                    <Radio.Group>
+                        {answerOptions.map((answerOption, index) => (
+                            <Radio value={answerOption.key} key={`${mapId}-${index}`}>{answerOption.value}</Radio>
+                        ))}
+                    </Radio.Group>
+                )
+            }
+
+            return (               
                 <Select placeholder='Sélectionner une réponse'>
 
                     {answerOptions.map((answerOption, index) => (
@@ -20,9 +33,15 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed }) => {
                     ))}
                 </Select>
             );
-        } else if (question.type === 'B') {
+        } 
+        
+        else if (question.type === 'B') {
+
             return <Input maxLength={255} />;
-        } else {
+        } 
+        
+        else {
+
             return <InputNumber type='number' min='1' max='5' />;
         }
     };
@@ -53,7 +72,7 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed }) => {
                     <p className='surveyed-form-paragraph'>Merci de répondre à toutes les questions et de valider le formulaire en bas de page</p>
                 </Col>
 
-                <Form initialValues={{ remember: true }} layout='vertical' onFinish={submitSurveyed} onFinishFailed={submitFailed} >
+                <Form initialValues={{ remember: true }} layout='vertical' onFinish={submitSurveyed} onFinishFailed={submitFailed} requiredMark={false} >
 
                     {questions.map((question, index) => (
 
@@ -61,11 +80,11 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed }) => {
 
                             <Col span={20} justify='center' align='middle' className='card question-card'>
 
-                                <h2>Question {question.title}</h2>
+                                <h2 className="question-title">Question {question.title} :</h2>
 
                                 <Form.Item
                                     align='middle'
-                                    label={question.content}
+                                    label={<label className="question-label">{question.content}</label>}
                                     name={index}
                                     extra={question.type === 'B' ? '255 caractères maximum' : ''}
                                     rules={getValidationRules(question)}>
