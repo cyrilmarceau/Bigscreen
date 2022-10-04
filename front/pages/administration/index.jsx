@@ -2,24 +2,37 @@ import { Row, Col, Button, Form, Input } from 'antd';
 import API from '~/api';
 import Helper from '~/helpers';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const LoginPage = () => {
 
     const router = useRouter();
 
+    const [loading, setLoading] = useState(false);
+
     const login = async (values) => {
+
+        setLoading(true);
+
         try {
+            
             const response = await API.login(values);
 
             if (response.success) {
+                
                 const { token } = response.data;
 
                 Helper.setItem('authToken', token);
 
-                router.push('/administration/home');
+                router.push('/administration/home').then(() => setLoading(false));
             }
         } catch (error) {
-            return;
+
+            setLoading(false);
+
+        } finally {
+
+            setLoading(false);
         }
     };
 
@@ -57,7 +70,7 @@ const LoginPage = () => {
                             </Form.Item>
 
                             <Form.Item wrapperCol={{ span: 24 }}>
-                                <Button type='primary' htmlType='submit'>
+                                <Button type='primary' htmlType='submit' loading={loading}>
                                     Connexion
                                 </Button>
                             </Form.Item>

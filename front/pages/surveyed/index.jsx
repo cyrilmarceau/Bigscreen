@@ -6,7 +6,9 @@ import DefaultLayout from '~/components/layout/DefaultLayout';
 import SurveyedForm from '~/components/surveyedForm';
 
 const ClientSurveyedFormPage = () => {
+
     const [questions, setQuestions] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const getClientQuestions = async () => {
         try {
@@ -22,6 +24,8 @@ const ClientSurveyedFormPage = () => {
 
     const submitSurveyed = async (values) => {
 
+        setLoading(true);
+
         let obj = {};
 
         let surveyedData = [];
@@ -34,9 +38,13 @@ const ClientSurveyedFormPage = () => {
         obj.questions = [...surveyedData];
 
         try {
+
             const response = await API.createSurveyed(obj);
-            console.log('responses', response);
+            
             if (response.success) {
+
+                setLoading(false);
+
                 Modal.success({
                     title: 'Votre réponse a bien été reçue',
                     content: (
@@ -50,7 +58,13 @@ const ClientSurveyedFormPage = () => {
                 });
             }
         } catch (error) {
+
+            setLoading(false);
             message.error(error.message);
+            
+        } finally {
+
+            setLoading(false);
         }
     };
 
@@ -65,7 +79,7 @@ const ClientSurveyedFormPage = () => {
             <Row justify='center' className='page-container'>
                 <Col span={24} justify='center' align='middle'>
                     {!isNil(questions) ? (
-                        <SurveyedForm submitSurveyed={submitSurveyed} submitFailed={submitFailed} questions={questions} />
+                        <SurveyedForm submitSurveyed={submitSurveyed} submitFailed={submitFailed} questions={questions} loading={loading} />
                     ) : (
                         <div className='loading-view'>
                             <Empty description="Aucune question n'a été trouvé !" />
