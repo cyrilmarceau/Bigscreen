@@ -3,7 +3,7 @@ import React, { useId } from 'react';
 import API from '~/api';
 import CardQuestion from './CardQuestion';
 
-const SurveyedForm = ({ questions, submitSurveyed, submitFailed }) => {
+const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
     const mapId = useId();
 
     const renderInput = (question) => {
@@ -82,7 +82,7 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed }) => {
                     ))}
 
                     <Form.Item wrapperCol={{ span: 24 }}>
-                        <Button className='surveyed-form-submit' type='primary' htmlType='submit'>
+                        <Button className='surveyed-form-submit' type='primary' htmlType='submit' loading={loading}>
                             Envoyer
                         </Button>
                     </Form.Item>
