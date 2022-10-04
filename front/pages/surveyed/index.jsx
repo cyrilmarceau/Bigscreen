@@ -43,8 +43,6 @@ const ClientSurveyedFormPage = () => {
             
             if (response.success) {
 
-                setLoading(false);
-
                 Modal.success({
                     title: 'Votre réponse a bien été reçue',
                     content: (
@@ -56,11 +54,13 @@ const ClientSurveyedFormPage = () => {
                         </p>
                     ),
                 });
+
+                setLoading(false);
             }
         } catch (error) {
 
-            setLoading(false);
             message.error(error.message);
+            setLoading(false);
             
         } finally {
 
