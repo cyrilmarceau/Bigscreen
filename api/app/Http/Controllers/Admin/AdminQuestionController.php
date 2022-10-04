@@ -18,7 +18,7 @@ class AdminQuestionController extends Controller
         $questions = Question::getAllWithExcludedColumns(['options']);
 
         if($questions->isEmpty()){
-            return $this->sendError('Aucune question n\'a été trouvé.', null);
+            return $this->sendError('Aucune question n\'a été trouvé.', []);
         }
         return $this->sendResponse($questions, "Liste des questions récupérer avec succès");
     }

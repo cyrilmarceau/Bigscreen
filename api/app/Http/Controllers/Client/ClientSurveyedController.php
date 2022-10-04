@@ -39,7 +39,7 @@ class ClientSurveyedController extends Controller
         $checkEmail = Surveyed::getByMail($email);
 
         if(!empty($checkEmail)) {
-            return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 422);
+            return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 400);
         }
 
         $surveyed = Surveyed::create([
@@ -74,7 +74,7 @@ class ClientSurveyedController extends Controller
         $surveyed = Surveyed::getBySlug($slug);
 
         if(empty($surveyed)){
-            return $this->sendError('Aucun sondé n\'a été trouvé', null, 404);
+            return $this->sendError('Aucun sondé n\'a été trouvé', [], 404);
         } else {
             return $this->sendResponse($surveyed, "Sondé récupéré avec succès");
         }

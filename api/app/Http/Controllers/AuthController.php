@@ -46,7 +46,7 @@ class AuthController extends Controller
 
             return $this->sendResponse($result, 'Utilisateur déconnecté');
         } else {
-            return $this->sendError('Problème lors de la déconnexion.', null);
+            return $this->sendError('Problème lors de la déconnexion.', []);
         }
 
 

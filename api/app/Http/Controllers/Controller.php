@@ -17,10 +17,10 @@ class Controller extends BaseController
      * sendResponse
      *  return successfull response
      * @param  mixed $result
-     * @param  mixed $message
+     * @param  string $message
      * @return \Illuminate\Http\Response
      */
-    public function sendResponse($result, $message)
+    public function sendResponse($result, string $message)
     {
     	$response = [
             'success' => true,
@@ -38,7 +38,7 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendError($error, $errorMessages = [], $code = 404)
+    public function sendError(string $error, array $errorMessages = [], int $code = 404)
     {
     	$response = [
             'success' => false,

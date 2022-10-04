@@ -27,7 +27,7 @@ class AdminChartController extends Controller
 
         $result = [$questionSix, $questionSeven, $questionTen, $questionElevenToFifteen];
 
-        return $this->sendResponse($result, null);
+        return $this->sendResponse($result, 'Graphiques retournée avec succès');
     }
     
     /**
