@@ -6,12 +6,11 @@ import { Layout } from 'antd';
 import FooterBS from '../FooterBS';
 
 const AdminLayout = ({ children }) => {
-
     return (
         <>
-            <Layout hasSider>
+            <Layout hasSider style={{ minHeight: '100vh' }}>
                 <SiderBS />
-                <Layout className='site-layout' style={{ marginLeft: 200, minHeight: '100vh', overflowY: 'hidden', maxHeight: '100vh' }}>
+                <Layout className='site-layout' style={{ marginLeft: 200 }}>
                     <HeaderBS />
                     <ContentBS>{children}</ContentBS>
                     <FooterBS />

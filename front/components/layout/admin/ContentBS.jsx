@@ -6,7 +6,7 @@ const { Content } = Layout;
 
 const ContentBS = ({ children }) => {
     return (
-        <Content style={{ overflowY: 'scroll', maxHeight: '90vh' }}>
+        <Content>
             <div className='site-layout-background' style={{ padding: 24 }}>
                 {children}
             </div>
