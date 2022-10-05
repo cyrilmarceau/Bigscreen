@@ -75,9 +75,14 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
             requiredMark={false}>
             {questions.map((question, index) => (
                 <React.Fragment key={index}>
-                    <CardQuestion title={question.title} content={question.content} key={index} loading={loading}>
+                    <CardQuestion title={question.title} content={null} key={index} loading={loading}>
                         <Form.Item
-                            align='middle'
+                            label={
+                                <label style={{ fontWeight: 'bold', fontSize: '1.3rem' }} aria-label={question.content}>
+                                    {question.content}
+                                </label>
+                            }
+                            align='left'
                             name={index}
                             extra={question.type === 'B' ? '255 caractères maximum' : ''}
                             rules={getValidationRules(question)}>

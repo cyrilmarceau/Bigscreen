@@ -3,35 +3,31 @@ import API from '~/api';
 import Helper from '~/helpers';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useAuth } from '~/contexts/authContext';
 
 const LoginPage = () => {
-
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);
+    const auth = useAuth();
 
     const login = async (values) => {
-
         setLoading(true);
 
         try {
-            
             const response = await API.login(values);
 
             if (response.success) {
-                
                 const { token } = response.data;
 
                 Helper.setItem('authToken', token);
+                auth.setIsAuthenticated(true);
 
                 router.push('/administration/home').then(() => setLoading(false));
             }
         } catch (error) {
-
             setLoading(false);
-
         } finally {
-
             setLoading(false);
         }
     };
@@ -41,9 +37,8 @@ const LoginPage = () => {
             <div className='page-container'>
                 <Row justify='center' align='middle' className='login-form-container'>
                     <Col xs={24} sm={16} lg={8} justify='center' align='middle' className='card login-form-card'>
-                        
-                        <div className='big-screen-logo'>  
-                            <img src="/big-screen-dark.png" alt="Big Screen" />
+                        <div className='big-screen-logo'>
+                            <img src='/big-screen-dark.png' alt='Big Screen' />
                         </div>
 
                         <p className='login-form-paragraph'>Me connecter</p>
@@ -57,7 +52,7 @@ const LoginPage = () => {
                                 wrapperCol={{ span: 24 }}
                                 rules={[
                                     { required: true, message: 'Votre email est requis' },
-                                    { type: 'email', message: 'Veuillez rentrer une adresse mail valide' }
+                                    { type: 'email', message: 'Veuillez rentrer une adresse mail valide' },
                                 ]}>
                                 <Input />
                             </Form.Item>
