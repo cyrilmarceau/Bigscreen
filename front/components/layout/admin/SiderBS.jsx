@@ -1,9 +1,12 @@
-import React, { useId } from 'react';
+import React from 'react';
 import { FileUnknownOutlined, HomeOutlined, FileDoneOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-const { Sider } = Layout;
 import { useRouter } from 'next/router';
+
+const { Sider } = Layout;
+
 const SiderBS = () => {
+
     const router = useRouter();
 
     const items = [
@@ -20,7 +23,7 @@ const SiderBS = () => {
         {
             key: '/administration/surveyeds',
             icon: <FileDoneOutlined />,
-            label: 'Réponse',
+            label: 'Réponses',
         },
     ];
 
@@ -37,7 +40,12 @@ const SiderBS = () => {
             <div className='big-screen-logo'>  
                 <img src="/big-screen-light.png" alt="Big Screen" />
             </div>
-            <Menu theme='dark' mode='inline' defaultSelectedKeys={['4']} onClick={(el) => router.push(el.key)} items={items} />
+            <Menu 
+                theme='dark' 
+                mode='inline' 
+                defaultSelectedKeys={['/administration/home']} 
+                onClick={(el) => router.push(el.key)} 
+                items={items} />
         </Sider>
     );
 };

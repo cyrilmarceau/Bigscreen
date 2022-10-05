@@ -1,5 +1,7 @@
 import React from 'react';
-import { Col, Row, Card, Skeleton, Meta, message, Modal } from 'antd';
+import { Col, Row, Card, Skeleton } from 'antd';
+
+const { Meta } = Card;
 
 const SkeletonCard = () => {
     const renderSkeleton = () => {

@@ -82,7 +82,7 @@ const AdminHomePage = () => {
             labels: [],
             datasets: [
                 {
-                    label: 'Satisfaction moyenne client',
+                    label: 'Indice satisfaction',
                     data: [],
                     fill: true,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
