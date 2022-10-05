@@ -8,6 +8,7 @@ import { Row, Col, Card, Skeleton, Meta } from 'antd';
 import { isNil } from 'lodash';
 import Helper from '~/helpers';
 import SkeletonCard from '~/components/SkeletonCard';
+import SurveyedTitle from '~/components/SurveyedTitle';
 
 const ClientSurveyedPage = () => {
     const router = useRouter();
@@ -35,23 +36,12 @@ const ClientSurveyedPage = () => {
 
     return (
         <Row>
-            <Col
-                xs={14}
-                md={14}
-                lg={14}
-                xl={14}
-                xxl={14}
-                justify='center'
-                align='middle'
-                className='card header-card'
-                style={{ margin: 'auto', marginBottom: 30 }}>
-                <h1 className='surveyed-form-title'>Big Screen</h1>
-
-                <h2 className='surveyed-form-paragraph'>
+            <SurveyedTitle>
+                <h2 className='header-paragraph'>
                     Vous trouverez ci-dessous les réponses que vous avez apportées à notre sondage le{' '}
                     {!isNil(surveyed) && Helper.formatDate(surveyed.created_at)}
                 </h2>
-            </Col>
+            </SurveyedTitle>
 
             <Col span={24} justify='center' align='middle'>
                 {!isNil(surveyed) ? (

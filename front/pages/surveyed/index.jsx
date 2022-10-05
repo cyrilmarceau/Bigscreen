@@ -5,6 +5,7 @@ import API from '~/api';
 import DefaultLayout from '~/components/layout/DefaultLayout';
 import SkeletonCard from '~/components/SkeletonCard';
 import SurveyedForm from '~/components/surveyedForm';
+import SurveyedTitle from '~/components/SurveyedTitle';
 
 const ClientSurveyedFormPage = () => {
     const [questions, setQuestions] = useState(null);
@@ -70,10 +71,9 @@ const ClientSurveyedFormPage = () => {
 
     return (
         <Row justify='center' className='page-container surveyed-index'>
-            <Col span={20} justify='center' align='middle' className='card header-card'>
-                <h1 className='header-title'>Big Screen</h1>
-                <p className='header-paragraph'>Merci de répondre à toutes les questions et de valider le formulaire en bas de page</p>
-            </Col>
+            <SurveyedTitle>
+                <h2 className='surveyed-form-paragraph'>Merci de répondre à toutes les questions et de valider le formulaire en bas de page</h2>
+            </SurveyedTitle>
 
             <Col span={24} justify='center' align='middle'>
                 {!isNil(questions) ? (
