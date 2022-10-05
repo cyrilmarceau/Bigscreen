@@ -1,11 +1,15 @@
 import React, { useEffect, useId, useState } from 'react';
 import AdminLayout from '~/components/layout/admin/AdminLayout';
-import { Row, Col } from 'antd';
+import { Row, Col, Empty, Spin } from 'antd';
 import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie, Radar } from 'react-chartjs-2';
 import API from '~/api';
+import { isNil } from 'lodash';
 
 const AdminHomePage = () => {
+
+    const mapId = useId();
+
     ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, ArcElement, Tooltip, Legend);
 
     const radarOption = {
@@ -20,7 +24,6 @@ const AdminHomePage = () => {
         },
     };
 
-    const mapId = useId();
     const [charts, setCharts] = useState(null);
 
     useEffect(() => {
@@ -40,6 +43,7 @@ const AdminHomePage = () => {
     };
 
     const renderPie = (chart) => {
+        
         const pieColors = [
             { background: 'rgba(255, 99, 132, 0.2)', border: 'rgba(255, 99, 132, 1)' },
             { background: 'rgba(54, 162, 235, 0.2)', border: 'rgba(54, 162, 235, 1)' },
@@ -73,6 +77,7 @@ const AdminHomePage = () => {
     };
 
     const renderRadar = (chart) => {
+        
         const radarData = {
             labels: [],
             datasets: [
@@ -103,16 +108,22 @@ const AdminHomePage = () => {
     };
 
     return (
+
         <div className='home'>
+
             <h1 className='home-page-title'>Statistiques des sondages</h1>
 
-            {charts && (
+            {!isNil(charts) ? (
+
                 <Row gutter={[32, 32]} justify='center' className='charts-row'>
+
                     {charts.map((chart, index) => {
                         return (
                             <Col className='chart-col' xs={24} lg={12} justify='center' align='middle' key={`${mapId}-${index}`}>
+
                                 <div className='chart-container'>
-                                    <h2 className='chart-title'>{chart.type === 'pie' ? chart.content : 'Statistiques qualité'}</h2>
+
+                                    <h2 className='chart-title'>{chart.type === 'pie' ? chart.content : 'Satisfaction client'}</h2>
 
                                     <div className='chart'>{renderChart(chart)}</div>
                                 </div>
@@ -120,7 +131,10 @@ const AdminHomePage = () => {
                         );
                     })}
                 </Row>
-            )}
+                )  : (
+                    <Spin tip="Chargement..." size="large" />
+                )
+            }
         </div>
     );
 };

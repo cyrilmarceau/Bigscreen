@@ -16,11 +16,13 @@ const AdminQuestionsPage = () => {
             title: 'Corps',
             dataIndex: 'content',
             key: 'content',
+            render: (_, record) => <span>{record?.content}</span>,
         },
         {
             title: 'Type',
             dataIndex: 'type',
             key: 'type',
+            render: (_, record) => <span>{record?.type}</span>,
         },
     ];
 
@@ -42,7 +44,10 @@ const AdminQuestionsPage = () => {
         getAdminQuestions();
     }, []);
 
-    return <Table columns={columns} dataSource={questions} />;
+    return <Table 
+            columns={columns} 
+            dataSource={questions} 
+            loading={!isNil(questions) === false ? true : false} />;
 };
 
 export async function getStaticProps(context) {
