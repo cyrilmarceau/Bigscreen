@@ -6,6 +6,8 @@ import { isNil } from 'lodash';
 import Helper from '~/helpers';
 
 const AdminSurveyedsPage = () => {
+    const [responses, setResponses] = useState(null);
+
     const columns = [
         {
             title: 'N°',
@@ -26,8 +28,6 @@ const AdminSurveyedsPage = () => {
             render: (_, record) => <span>{!isNil(record) && Helper.parseQuestionOption(record)}</span>,
         },
     ];
-
-    const [responses, setResponses] = useState(null);
 
     const getAnswers = async () => {
         try {
@@ -55,18 +55,15 @@ const AdminSurveyedsPage = () => {
         getAnswers();
     }, []);
 
-    // return responses?.map((el, i) => { V1
     return (
         <Table
             style={{ marginTop: '25px', marginBottom: '25px' }}
-            // key={i}
             pagination={{ defaultPageSize: 20, pageSizeOptions: [10, 20] }}
             loading={!isNil(responses) === false ? true : false}
             columns={columns}
             dataSource={responses}
         />
     );
-    // });
 };
 
 export async function getStaticProps(context) {

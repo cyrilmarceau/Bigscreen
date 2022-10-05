@@ -6,7 +6,6 @@ import { Pie, Radar } from 'react-chartjs-2';
 import API from '~/api';
 
 const AdminHomePage = () => {
-    
     ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, ArcElement, Tooltip, Legend);
 
     const radarOption = {
@@ -15,10 +14,10 @@ const AdminHomePage = () => {
                 suggestedMin: 0,
                 suggestedMax: 5,
                 ticks: {
-                    stepSize: 1
-                }
-            }
-        }
+                    stepSize: 1,
+                },
+            },
+        },
     };
 
     const mapId = useId();
@@ -29,7 +28,6 @@ const AdminHomePage = () => {
     }, []);
 
     const getCharts = async () => {
-
         try {
             const response = await API.getCharts();
 
@@ -42,7 +40,6 @@ const AdminHomePage = () => {
     };
 
     const renderPie = (chart) => {
-
         const pieColors = [
             { background: 'rgba(255, 99, 132, 0.2)', border: 'rgba(255, 99, 132, 1)' },
             { background: 'rgba(54, 162, 235, 0.2)', border: 'rgba(54, 162, 235, 1)' },
@@ -66,18 +63,16 @@ const AdminHomePage = () => {
         };
 
         chart.stats.forEach((data, index) => {
-
             pieData.labels.push(data.label);
             pieData.datasets[0].data.push(data.count);
             pieData.datasets[0].backgroundColor.push(pieColors[index].background);
             pieData.datasets[0].borderColor.push(pieColors[index].border);
-        })
+        });
 
         return pieData;
     };
 
     const renderRadar = (chart) => {
-
         const radarData = {
             labels: [],
             datasets: [
@@ -90,41 +85,36 @@ const AdminHomePage = () => {
                     pointBackgroundColor: 'rgb(255, 99, 132)',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    pointHoverBorderColor: 'rgb(255, 99, 132)',
                 },
             ],
         };
 
-        chart.stats.forEach(data => {
-
+        chart.stats.forEach((data) => {
             radarData.labels.push(data.label);
             radarData.datasets[0].data.push(data.count);
-        })
+        });
 
         return radarData;
     };
 
+    const renderChart = (chart) => {
+        return chart.type === 'pie' ? <Pie data={renderPie(chart)} /> : <Radar data={renderRadar(chart)} options={radarOption} />;
+    };
+
     return (
         <div className='home'>
-            
             <h1 className='home-page-title'>Statistiques des sondages</h1>
 
             {charts && (
-
                 <Row gutter={[32, 32]} justify='center' className='charts-row'>
-
                     {charts.map((chart, index) => {
-
                         return (
-                            <Col className="chart-col" xs={24} lg={12} justify='center' align='middle' key={`${mapId}-${index}`}>
+                            <Col className='chart-col' xs={24} lg={12} justify='center' align='middle' key={`${mapId}-${index}`}>
+                                <div className='chart-container'>
+                                    <h2 className='chart-title'>{chart.type === 'pie' ? chart.content : 'Statistiques qualité'}</h2>
 
-                                <div className="chart-container">
-
-                                    <h2 className='chart-title'>{chart.type === "pie" ? chart.content : "Statistiques qualité"}</h2>
-
-                                    <div className="chart">
-                                        {chart.type === "pie" ? <Pie data={renderPie(chart)} /> : <Radar data={renderRadar(chart)} options={radarOption}  />}
-                                    </div>
+                                    <div className='chart'>{renderChart(chart)}</div>
                                 </div>
                             </Col>
                         );

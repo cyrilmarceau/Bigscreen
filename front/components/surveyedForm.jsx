@@ -3,22 +3,21 @@ import React, { useId } from 'react';
 import CardQuestion from './CardQuestion';
 
 const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
-
     const mapId = useId();
 
     const initialValues = {
-        "3": 1,
-        "8": 1,
-        "10": 1,
-        "11": 1,
-        "12": 1,
-        "13": 1,
-        "14": 1,
-        "15": "yes",
-        "16": "yes",
-        "17": "yes",
-        "18": "yes"
-    }
+        '3': 1,
+        '8': 1,
+        '10': 1,
+        '11': 1,
+        '12': 1,
+        '13': 1,
+        '14': 1,
+        '15': 'yes',
+        '16': 'yes',
+        '17': 'yes',
+        '18': 'yes',
+    };
 
     const renderInput = (question) => {
         if (question.type === 'A') {
@@ -53,7 +52,6 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
     };
 
     const getValidationRules = (question) => {
-
         let validationRules = [{ required: true, message: 'Votre réponse est requise' }];
 
         if (question.id === 1) {
@@ -68,41 +66,33 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
     };
 
     return (
-        
-        <div className='surveyed-form'>
+        <Form
+            className='surveyed-form'
+            initialValues={initialValues}
+            layout='vertical'
+            onFinish={submitSurveyed}
+            onFinishFailed={submitFailed}
+            requiredMark={false}>
+            {questions.map((question, index) => (
+                <React.Fragment key={index}>
+                    <CardQuestion title={question.title} content={question.content} key={index} loading={loading}>
+                        <Form.Item
+                            align='middle'
+                            name={index}
+                            extra={question.type === 'B' ? '255 caractères maximum' : ''}
+                            rules={getValidationRules(question)}>
+                            {renderInput(question)}
+                        </Form.Item>
+                    </CardQuestion>
+                </React.Fragment>
+            ))}
 
-            <Form
-                initialValues={initialValues}
-                layout='vertical'
-                onFinish={submitSurveyed}
-                onFinishFailed={submitFailed}
-                requiredMark={false}>
-
-                {questions.map((question, index) => (
-                    <Row key={index}>
-                        <CardQuestion 
-                            title={question.title} 
-                            content={question.content} 
-                            key={index} 
-                            loading={loading}>
-                            <Form.Item
-                                align='middle'
-                                name={index}
-                                extra={question.type === 'B' ? '255 caractères maximum' : ''}
-                                rules={getValidationRules(question)}>
-                                {renderInput(question)}
-                            </Form.Item>
-                        </CardQuestion>
-                    </Row>
-                ))}
-
-                <Form.Item wrapperCol={{ span: 24 }}>
-                    <Button className='surveyed-form-submit' type='primary' htmlType='submit' loading={loading}>
-                        Envoyer
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
+            <Form.Item wrapperCol={{ span: 24 }}>
+                <Button className='surveyed-form-submit' type='primary' htmlType='submit' loading={loading}>
+                    Envoyer
+                </Button>
+            </Form.Item>
+        </Form>
     );
 };
 
