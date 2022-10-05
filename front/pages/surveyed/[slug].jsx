@@ -35,7 +35,7 @@ const ClientSurveyedPage = () => {
     }, [router.query.slug]);
 
     return (
-        <Row>
+        <Row justify='center' className='page-container surveyed-index'>
             <SurveyedTitle>
                 <h2 className='header-paragraph'>
                     Vous trouverez ci-dessous les réponses que vous avez apportées à notre sondage le{' '}
