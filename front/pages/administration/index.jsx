@@ -55,7 +55,10 @@ const LoginPage = () => {
                                 name='email'
                                 align='middle'
                                 wrapperCol={{ span: 24 }}
-                                rules={[{ required: true, message: 'Votre email est requis' }]}>
+                                rules={[
+                                    { required: true, message: 'Votre email est requis' },
+                                    { type: 'email', message: 'Veuillez rentrer une adresse mail valide' }
+                                ]}>
                                 <Input />
                             </Form.Item>
 

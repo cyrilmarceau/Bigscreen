@@ -1,10 +1,11 @@
 import React from 'react';
 const { Meta } = Card;
-import { Row, Col, Card } from 'antd';
+import { Col, Card } from 'antd';
 
 const CardQuestion = ({ title, content, span = 24, children }) => {
+
     return (
-        <Col xs={span} md={14} lg={14} xl={14} xxl={14} justify='center' align='start' style={{ margin: 'auto' }}>
+        <Col xs={span} md={24} lg={24} xl={14} xxl={14} justify='center' align='start' style={{ margin: 'auto' }}>
             <Card
                 title={`Question ${title}`}
                 headStyle={{ fontWeight: 'bold', fontSize: '1rem' }}

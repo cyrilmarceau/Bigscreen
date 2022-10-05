@@ -1,10 +1,24 @@
-import { Button, Col, Form, Input, InputNumber, Row, Select, Radio } from 'antd';
+import { Button, Form, Input, InputNumber, Row, Select, Radio, Card } from 'antd';
 import React, { useId } from 'react';
-import API from '~/api';
 import CardQuestion from './CardQuestion';
 
 const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
+
     const mapId = useId();
+
+    const initialValues = {
+        "3": 1,
+        "8": 1,
+        "10": 1,
+        "11": 1,
+        "12": 1,
+        "13": 1,
+        "14": 1,
+        "15": "yes",
+        "16": "yes",
+        "17": "yes",
+        "18": "yes"
+    }
 
     const renderInput = (question) => {
         if (question.type === 'A') {
@@ -34,11 +48,12 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
         } else if (question.type === 'B') {
             return <Input type='text' maxLength={255} />;
         } else {
-            return <InputNumber defaultValue='1' type='number' min='1' max='5' />;
+            return <InputNumber type='number' min='1' max='5' />;
         }
     };
 
     const getValidationRules = (question) => {
+
         let validationRules = [{ required: true, message: 'Votre réponse est requise' }];
 
         if (question.id === 1) {
@@ -53,41 +68,40 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
     };
 
     return (
+        
         <div className='surveyed-form'>
-            <>
-                <Col span={20} justify='center' align='middle' className='card header-card'>
-                    <h1 className='surveyed-form-title'>Big Screen</h1>
 
-                    <p className='surveyed-form-paragraph'>Merci de répondre à toutes les questions et de valider le formulaire en bas de page</p>
-                </Col>
+            <Form
+                initialValues={initialValues}
+                layout='vertical'
+                onFinish={submitSurveyed}
+                onFinishFailed={submitFailed}
+                requiredMark={false}>
 
-                <Form
-                    initialValues={{ remember: true }}
-                    layout='vertical'
-                    onFinish={submitSurveyed}
-                    onFinishFailed={submitFailed}
-                    requiredMark={false}>
-                    {questions.map((question, index) => (
-                        <Row key={index}>
-                            <CardQuestion title={question.title} content={question.content} key={index}>
-                                <Form.Item
-                                    align='middle'
-                                    name={index}
-                                    extra={question.type === 'B' ? '255 caractères maximum' : ''}
-                                    rules={getValidationRules(question)}>
-                                    {renderInput(question)}
-                                </Form.Item>
-                            </CardQuestion>
-                        </Row>
-                    ))}
+                {questions.map((question, index) => (
+                    <Row key={index}>
+                        <CardQuestion 
+                            title={question.title} 
+                            content={question.content} 
+                            key={index} 
+                            loading={loading}>
+                            <Form.Item
+                                align='middle'
+                                name={index}
+                                extra={question.type === 'B' ? '255 caractères maximum' : ''}
+                                rules={getValidationRules(question)}>
+                                {renderInput(question)}
+                            </Form.Item>
+                        </CardQuestion>
+                    </Row>
+                ))}
 
-                    <Form.Item wrapperCol={{ span: 24 }}>
-                        <Button className='surveyed-form-submit' type='primary' htmlType='submit' loading={loading}>
-                            Envoyer
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </>
+                <Form.Item wrapperCol={{ span: 24 }}>
+                    <Button className='surveyed-form-submit' type='primary' htmlType='submit' loading={loading}>
+                        Envoyer
+                    </Button>
+                </Form.Item>
+            </Form>
         </div>
     );
 };

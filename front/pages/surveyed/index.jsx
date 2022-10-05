@@ -1,4 +1,4 @@
-import { Col, Row, message, Modal, Empty } from 'antd';
+import { Col, Row, Card, Skeleton, Meta, message, Modal } from 'antd';
 import { isNil } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import API from '~/api';
@@ -11,7 +11,9 @@ const ClientSurveyedFormPage = () => {
     const [loading, setLoading] = useState(false);
 
     const getClientQuestions = async () => {
+
         try {
+
             const response = await API.getClientQuestions();
 
             if (response.success) {
@@ -70,21 +72,67 @@ const ClientSurveyedFormPage = () => {
 
     const submitFailed = () => message.error("Erreur de validation du questionnaire: Veuillez répondre à l'ensemble des questions");
 
+    const renderSkeleton = () => {
+
+        let skeletons = [];
+
+        for(let i = 0; i < 10; i++) {
+
+           skeletons.push(
+                <Col 
+                    xs={24} 
+                    md={24} 
+                    lg={24} 
+                    xl={14} 
+                    xxl={14} 
+                    justify='center' 
+                    align='start' 
+                    style={{ margin: 'auto' }}>
+
+                    <Card style={{ borderRadius: 20, marginBottom: '25px', marginTop: '25px' }}>
+                        
+                        <Skeleton loading={true} active>
+                            <Meta title description />
+                        </Skeleton>
+                    </Card>
+                </Col>
+           )
+        }
+
+        return skeletons;
+    }
+
     useEffect(() => {
         getClientQuestions();
     }, []);
 
     return (
+
         <div className='surveyed-index'>
+
             <Row justify='center' className='page-container'>
+
+                <Col span={20} justify='center' align='middle' className='card header-card'>
+
+                    <h1 className='header-title'>Big Screen</h1>
+
+                    <p className='header-paragraph'>Merci de répondre à toutes les questions et de valider le formulaire en bas de page</p>
+                </Col>
+
                 <Col span={24} justify='center' align='middle'>
+                    
                     {!isNil(questions) ? (
-                        <SurveyedForm submitSurveyed={submitSurveyed} submitFailed={submitFailed} questions={questions} loading={loading} />
-                    ) : (
-                        <div className='loading-view'>
-                            <Empty description="Aucune question n'a été trouvé !" />
-                        </div>
-                    )}
+                        <SurveyedForm 
+                            submitSurveyed={submitSurveyed} 
+                            submitFailed={submitFailed} 
+                            questions={questions} 
+                            loading={loading} />
+                        ) : (
+                            <>
+                                {renderSkeleton().map((skeleton, index) => <Row key={index}>{skeleton}</Row>)}
+                            </>  
+                        )
+                    }
                 </Col>
             </Row>
         </div>
