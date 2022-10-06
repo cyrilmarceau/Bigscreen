@@ -34,21 +34,24 @@ class ClientSurveyedController extends Controller
     public function store(StoreSurveyedRequest $request)
     {
 
+        $countRequest = count($request->input('questions'));
+
+        if(is_null($request->input('questions')) || $countRequest !== 20) {
+            return $this->sendError('Veuillez répondre à l\'ensemble des questions du formulaire', ['error' => 'empty_form'], 400);
+        }
+
         $email = $request->input('email');
 
         $checkEmail = Surveyed::getByMail($email);
 
         if(!empty($checkEmail)) {
-            return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 400);
+            return $this->sendError("Erreur enregistrement: Vous avez déjà répondu au sondage avec une adresse email identique", [], 422);
         }
 
         $surveyed = Surveyed::create([
             'slug' => fake()->uuid(),
             'email' => $email
         ]);
-
-
-        $countRequest = count($request->input('questions'));
 
         for($i = 0; $i < $countRequest; $i++) {
 
