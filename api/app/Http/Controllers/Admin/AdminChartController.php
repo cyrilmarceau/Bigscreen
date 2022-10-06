@@ -28,10 +28,10 @@ class AdminChartController extends Controller
         $result = [$questionSix, $questionSeven, $questionTen, $questionElevenToFifteen];
 
         if(in_array(null, $result)){
-            return $this->sendResponse([], 'Aucune données trouvé');
+            return $this->sendResponse([], 'Aucune donnée trouvée');
         }
 
-        return $this->sendResponse($result, 'Graphiques retournée avec succès');
+        return $this->sendResponse($result, 'Graphiques retournés avec succès');
     }
     
     /**

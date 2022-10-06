@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AuthProvider } from '~/contexts/authContext';
 import Helper from '~/helpers';
+import { ConfigProvider } from 'antd';
+import frFR from 'antd/lib/locale/fr_FR';
 
 /**
  * BigscreenApp:
@@ -34,9 +36,11 @@ function BigscreenApp({ Component, pageProps }) {
         }
     });
     return (
-        <AuthProvider isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}>
-            {getLayout(<Component {...pageProps} />)}
-        </AuthProvider>
+        <ConfigProvider locale={frFR}>
+            <AuthProvider isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}>
+                {getLayout(<Component {...pageProps} />)}
+            </AuthProvider>
+        </ConfigProvider>
     );
 }
 

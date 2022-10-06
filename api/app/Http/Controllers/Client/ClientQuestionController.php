@@ -18,9 +18,9 @@ class ClientQuestionController extends Controller
         $questions = Question::getAll();
 
         if($questions->isEmpty()){
-            return $this->sendError('Aucune question n\'a été trouvé.', []);
+            return $this->sendError('Aucune questions n\'a été trouvées.', []);
         }
-        return $this->sendResponse($questions, "Liste des questions récupérer avec succès");
+        return $this->sendResponse($questions, "Liste des questions récupérée avec succès");
     }
 
     /**
