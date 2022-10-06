@@ -1,18 +1,24 @@
 import 'antd/dist/antd.css';
 import '../styles/index.scss';
 import _ from 'lodash';
-import { useEffect, useState, useContext, createContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AuthProvider } from '~/contexts/authContext';
 
+/**
+ * BigscreenApp:
+ * 
+ * Component entry point for application bootstrap.
+ */
 function BigscreenApp({ Component, pageProps }) {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const getLayout = Component.getLayout || ((page) => page);
     const router = useRouter();
 
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     useEffect(() => {
-        if (pageProps.protected === true && !isAuthenticated === false) {
+        if (pageProps.protected === true && isAuthenticated === false) {
             router.push('/administration');
         }
     }, [isAuthenticated]);
