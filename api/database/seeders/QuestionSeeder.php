@@ -20,21 +20,21 @@ class QuestionSeeder extends Seeder
         $questions = [
             [
                 'title' => '1/20',
-                'content' => 'Votre adresse mail',
+                'content' => 'Votre adresse mail ?',
                 'type' => 'B',
                 'options' => null,
                 'created_at' => now()
             ],
             [
                 'title' => '2/20',
-                'content' => 'Votre âge',
+                'content' => 'Votre âge ?',
                 'type' => 'B',
                 'options' => null,
                 'created_at' => now()
             ],
             [
                 'title' => '3/20',
-                'content' => 'Votre sexe',
+                'content' => 'Votre sexe ?',
                 'type' => 'A',
                 'options' => json_encode([
                     [
@@ -61,7 +61,7 @@ class QuestionSeeder extends Seeder
             ],
             [
                 'title' => '5/20',
-                'content' => 'Votre profession',
+                'content' => 'Votre profession ?',
                 'type' => 'B',
                 'options' => null,
                 'created_at' => now()
@@ -164,23 +164,23 @@ class QuestionSeeder extends Seeder
                 'options' => json_encode([
                     [
                         "key" => "tv_watch",
-                        "value" => "regarder la TV en direct"
+                        "value" => "Regarder la TV en direct"
                     ],
                     [
                         "key" => "movie_watch",
-                        "value" => "regarder des films"
+                        "value" => "Regarder des films"
                     ],
                     [
                         "key" => "work",
-                        "value" => "travailler"
+                        "value" => "Travailler"
                     ],
                     [
                         "key" => "solo_play",
-                        "value" => "jouer en solo"
+                        "value" => "Jouer en solo"
                     ],
                     [
                         "key" => "team_play",
-                        "value" => "jouer en team"
+                        "value" => "Jouer en team"
                     ]
                 ]),
                 'created_at' => now()
