@@ -20,12 +20,16 @@ class AdminChartController extends Controller
     public function charts()
     {
 
-        $questionSix = self::getQuestionSix();
-        $questionSeven = self::getQuestionSeven();
-        $questionTen = self::getQuestionTen();
-        $questionElevenToFifteen = self::getQuestionElevenToFifteen();
-
+        $questionSix = $this->getQuestionSix();
+        $questionSeven = $this->getQuestionSeven();
+        $questionTen = $this->getQuestionTen();
+        $questionElevenToFifteen = $this->getQuestionElevenToFifteen();
+        
         $result = [$questionSix, $questionSeven, $questionTen, $questionElevenToFifteen];
+
+        if(in_array(null, $result)){
+            return $this->sendResponse([], 'Aucune données trouvé');
+        }
 
         return $this->sendResponse($result, 'Graphiques retournée avec succès');
     }
@@ -36,7 +40,7 @@ class AdminChartController extends Controller
      * @param  mixed $answers
      * @return array
      */
-    private static function removeDupplicateValue(Collection $answers): array
+    private function removeDupplicateValue(Collection $answers): array
     {
         $contents = [];
 
@@ -55,7 +59,7 @@ class AdminChartController extends Controller
      * @param  mixed $answers
      * @return array
      */
-    private static function getAnswerStats(array $answers, Question $question): array
+    private function getAnswerStats(array $answers, Question $question): array
     {
 
         $options = json_decode($question->options);
@@ -96,14 +100,22 @@ class AdminChartController extends Controller
      * Get all answers from question six
      * @return void
      */
-    private static function getQuestionSix()
+    private function getQuestionSix()
     {
         $question = Question::getById(6);
+        
         $answers = $question->answers()->get();
         
-        $uniqueAnswer = self::removeDupplicateValue($answers);
+        if($answers->isEmpty()){
+            return null;
+        }
+        // if(is_null($question->answers()->get())){
+        //     return $this->sendError("Aucune réponses trouvé", [], 400);
+        // }
+        
+        $uniqueAnswer = $this->removeDupplicateValue($answers);
 
-        $stats = self::getAnswerStats($uniqueAnswer, $question);
+        $stats = $this->getAnswerStats($uniqueAnswer, $question);
 
         $response = [
             "content" => $question->content,
@@ -120,14 +132,18 @@ class AdminChartController extends Controller
      * get all answers from question seven
      * @return void
      */
-    private static function getQuestionSeven()
+    private function getQuestionSeven()
     {
         $question = Question::getById(7);
         $answers = $question->answers()->get();
         
-        $uniqueAnswer = self::removeDupplicateValue($answers);
+         if($answers->isEmpty()){
+            return null;
+        }
 
-        $stats = self::getAnswerStats($uniqueAnswer, $question);
+        $uniqueAnswer = $this->removeDupplicateValue($answers);
+
+        $stats = $this->getAnswerStats($uniqueAnswer, $question);
 
 
         $response = [
@@ -144,14 +160,18 @@ class AdminChartController extends Controller
      * Get all anwers from question ten
      * @return void
      */
-    private static function getQuestionTen()
+    private function getQuestionTen()
     {
         $question = Question::getById(10);
         $answers = $question->answers()->get();
         
-        $uniqueAnswer = self::removeDupplicateValue($answers);
+         if($answers->isEmpty()){
+            return null;
+        }
 
-        $stats = self::getAnswerStats($uniqueAnswer, $question);
+        $uniqueAnswer = $this->removeDupplicateValue($answers);
+
+        $stats = $this->getAnswerStats($uniqueAnswer, $question);
 
 
         $response = [
@@ -168,7 +188,7 @@ class AdminChartController extends Controller
      * Get all answer from question eleven to fifteen
      * @return void
      */
-    private static function getQuestionElevenToFifteen()
+    private function getQuestionElevenToFifteen()
     {
         $stats = [];
 

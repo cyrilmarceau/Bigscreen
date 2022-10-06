@@ -4,10 +4,9 @@ import { Row, Col, Empty, Spin } from 'antd';
 import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie, Radar } from 'react-chartjs-2';
 import API from '~/api';
-import { isNil } from 'lodash';
+import { isEmpty, isNil } from 'lodash';
 
 const AdminHomePage = () => {
-
     const mapId = useId();
 
     ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, ArcElement, Tooltip, Legend);
@@ -35,7 +34,11 @@ const AdminHomePage = () => {
             const response = await API.getCharts();
 
             if (response.success) {
-                setCharts(response.data);
+                if (!isEmpty(response.data)) {
+                    setCharts(response.data);
+                } else {
+                    setCharts([]);
+                }
             }
         } catch (error) {
             return;
@@ -43,7 +46,6 @@ const AdminHomePage = () => {
     };
 
     const renderPie = (chart) => {
-        
         const pieColors = [
             { background: 'rgba(255, 99, 132, 0.2)', border: 'rgba(255, 99, 132, 1)' },
             { background: 'rgba(54, 162, 235, 0.2)', border: 'rgba(54, 162, 235, 1)' },
@@ -77,7 +79,6 @@ const AdminHomePage = () => {
     };
 
     const renderRadar = (chart) => {
-        
         const radarData = {
             labels: [],
             datasets: [
@@ -107,36 +108,36 @@ const AdminHomePage = () => {
         return chart.type === 'pie' ? <Pie data={renderPie(chart)} /> : <Radar data={renderRadar(chart)} options={radarOption} />;
     };
 
-    return (
+    const renderPage = () => {
+        // Check if data is null
 
-        <div className='home'>
+        if (isNil(charts)) {
+            return <Spin tip='Chargement...' size='large' />;
+        } else if (!isNil(charts) && !isEmpty(charts)) {
+            return (
+                <>
+                    <h1 className='home-page-title'>Statistiques des sondages</h1>
+                    <Row gutter={[32, 32]} justify='center' className='charts-row'>
+                        {charts.map((chart, index) => {
+                            return (
+                                <Col className='chart-col' xs={24} lg={12} justify='center' align='middle' key={`${mapId}-${index}`}>
+                                    <div className='chart-container'>
+                                        <h2 className='chart-title'>{chart.type === 'pie' ? chart.content : 'Satisfaction client'}</h2>
 
-            <h1 className='home-page-title'>Statistiques des sondages</h1>
+                                        <div className='chart'>{renderChart(chart)}</div>
+                                    </div>
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                </>
+            );
+        } else {
+            return <Empty style={{ margin: 'auto' }} description="Aucune réponses au sondage. Nous n'avons pas pu traiter les graphiques" />;
+        }
+    };
 
-            {!isNil(charts) ? (
-
-                <Row gutter={[32, 32]} justify='center' className='charts-row'>
-
-                    {charts.map((chart, index) => {
-                        return (
-                            <Col className='chart-col' xs={24} lg={12} justify='center' align='middle' key={`${mapId}-${index}`}>
-
-                                <div className='chart-container'>
-
-                                    <h2 className='chart-title'>{chart.type === 'pie' ? chart.content : 'Satisfaction client'}</h2>
-
-                                    <div className='chart'>{renderChart(chart)}</div>
-                                </div>
-                            </Col>
-                        );
-                    })}
-                </Row>
-                )  : (
-                    <Spin tip="Chargement..." size="large" />
-                )
-            }
-        </div>
-    );
+    return <div className='home'>{renderPage()}</div>;
 };
 
 export async function getStaticProps(context) {
