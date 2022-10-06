@@ -41,12 +41,10 @@ const LoginPage = () => {
                             <img src='/big-screen-dark.png' alt='Big Screen' />
                         </div>
 
-                        <p className='login-form-paragraph'>Me connecter</p>
-
                         <Form name='basic' initialValues={{ remember: true }} layout='vertical' autoComplete='off' onFinish={login}>
                             <Form.Item
                                 className='form-field'
-                                label='Email'
+                                label={<label style={{ fontSize: '1.2rem', fontWeight: 500 }} aria-label="email">Email</label>}
                                 name='email'
                                 align='middle'
                                 wrapperCol={{ span: 24 }}
@@ -59,7 +57,7 @@ const LoginPage = () => {
 
                             <Form.Item
                                 className='form-field'
-                                label='Password'
+                                label={<label style={{ fontSize: '1.2rem', fontWeight: 500 }} aria-label="password">Password</label>}
                                 name='password'
                                 align='middle'
                                 wrapperCol={{ span: 24 }}
@@ -69,7 +67,7 @@ const LoginPage = () => {
 
                             <Form.Item wrapperCol={{ span: 24 }}>
                                 <Button type='primary' htmlType='submit' loading={loading}>
-                                    Connexion
+                                    Se connecter
                                 </Button>
                             </Form.Item>
                         </Form>

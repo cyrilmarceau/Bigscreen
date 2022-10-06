@@ -11,24 +11,22 @@
         
             .big-screen-logo {
 
-                width: 18rem;
-                margin-bottom: 1rem;
+                width: 22rem;
+                margin-bottom: 4rem;
 
                 & > img {
 
                     width: 100%;
                 }
             }
-
-            .login-form-paragraph {
-
-                margin-bottom: 2rem;
-                font-size: 1.5rem;
-                font-weight: 500;
-            }
         
             .form-field {
+                
                 margin-bottom: 3rem;
+
+                &:nth-child(2) {
+                    margin-bottom: 4rem;
+                }
             }
         }
     }
