@@ -1,12 +1,10 @@
 .home {
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
+    height: 100%;
     .home-page-title {
-
         padding-top: 1rem;
         padding-bottom: 1rem;
         font-size: 2rem;
@@ -14,31 +12,26 @@
     }
 
     .charts-row {
-
         width: 80%;
         padding-top: 1rem;
 
         .chart-col {
-
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
 
             .chart-container {
-
                 width: 100%;
-                
-                .chart-title {
 
+                .chart-title {
                     width: 100%;
                     margin-bottom: 1rem;
                     font-size: 1.15rem;
                     text-align: center;
                 }
-    
+
                 .chart {
-                    
                     width: 70%;
                     display: flex;
                     justify-content: center;
@@ -49,35 +42,27 @@
     }
 
     @media screen and (max-width: 992px) {
-
         .chart-title {
-
             font-size: 1.25rem !important;
         }
     }
 
     @media screen and (max-width: 768px) {
-
         .home-page-title {
-
             font-size: 1.5rem;
         }
 
         .chart-title {
-
             font-size: 1rem !important;
         }
     }
 
     @media screen and (max-width: 576px) {
-
         .home-page-title {
-
             font-size: 1.25rem;
         }
 
         .chart-title {
-
             font-size: 0.75rem !important;
         }
     }

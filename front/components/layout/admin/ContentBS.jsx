@@ -7,7 +7,7 @@ const { Content } = Layout;
 const ContentBS = ({ children }) => {
     return (
         <Content>
-            <div className='site-layout-background' style={{ padding: 24 }}>
+            <div className='site-layout-background' style={{ padding: 24, height: '100%' }}>
                 {children}
             </div>
         </Content>
