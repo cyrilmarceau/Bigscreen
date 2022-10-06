@@ -20,10 +20,10 @@ class AdminChartController extends Controller
     public function charts()
     {
 
-        $questionSix = $this->getQuestionSix();
-        $questionSeven = $this->getQuestionSeven();
-        $questionTen = $this->getQuestionTen();
-        $questionElevenToFifteen = $this->getQuestionElevenToFifteen();
+        $questionSix = $this->getPieStats(6);
+        $questionSeven = $this->getPieStats(7);
+        $questionTen = $this->getPieStats(10);
+        $questionElevenToFifteen = $this->getRadarStats();
         
         $result = [$questionSix, $questionSeven, $questionTen, $questionElevenToFifteen];
 
@@ -35,12 +35,12 @@ class AdminChartController extends Controller
     }
     
     /**
-     * removeDupplicateValue
-     * Remove dupplicate value from collection
+     * removeDupplicateAnswers
+     * Remove dupplicate answers from collection
      * @param  mixed $answers
      * @return array
      */
-    private function removeDupplicateValue(Collection $answers): array
+    private function removeDupplicateAnswers(Collection $answers): array
     {
         $contents = [];
 
@@ -54,12 +54,12 @@ class AdminChartController extends Controller
     }
 
     /**
-     * getAnswerStats
+     * getAnswerCount
      * return an array of count value
      * @param  mixed $answers
      * @return array
      */
-    private function getAnswerStats(array $answers, Question $question): array
+    private function getAnswerCount(array $answers, Question $question): array
     {
 
         $options = json_decode($question->options);
@@ -73,8 +73,7 @@ class AdminChartController extends Controller
 
                 foreach ($options as $option) {
                     if($option->key === $answer){
-                        
-                        // $values[$option->value] = $contentCount;  
+                         
                         $res = [
                             "label" => $option->value,
                             "count" => $contentCount
@@ -96,26 +95,24 @@ class AdminChartController extends Controller
     }
     
     /**
-     * getQuestionSix
-     * Get all answers from question six
-     * @return void
+     * getPieStats
+     * Get pie stats from selected question
+     * @param  $id
+     * @return $response
      */
-    private function getQuestionSix()
+    private function getPieStats($id)
     {
-        $question = Question::getById(6);
+        $question = Question::getById($id);
         
         $answers = $question->answers()->get();
         
         if($answers->isEmpty()){
             return null;
         }
-        // if(is_null($question->answers()->get())){
-        //     return $this->sendError("Aucune réponses trouvé", [], 400);
-        // }
         
-        $uniqueAnswer = $this->removeDupplicateValue($answers);
+        $uniqueAnswer = $this->removeDupplicateAnswers($answers);
 
-        $stats = $this->getAnswerStats($uniqueAnswer, $question);
+        $stats = $this->getAnswerCount($uniqueAnswer, $question);
 
         $response = [
             "content" => $question->content,
@@ -128,67 +125,11 @@ class AdminChartController extends Controller
     }
     
     /**
-     * questionSeven
-     * get all answers from question seven
+     * getRadarStats
+     * Get radar stats from questions eleven to fifteen
      * @return void
      */
-    private function getQuestionSeven()
-    {
-        $question = Question::getById(7);
-        $answers = $question->answers()->get();
-        
-         if($answers->isEmpty()){
-            return null;
-        }
-
-        $uniqueAnswer = $this->removeDupplicateValue($answers);
-
-        $stats = $this->getAnswerStats($uniqueAnswer, $question);
-
-
-        $response = [
-            "content" => $question->content,
-            "stats" => $stats,
-            "type" => "pie"
-        ];
-
-        return $response;
-    }
-    
-    /**
-     * questionTen
-     * Get all anwers from question ten
-     * @return void
-     */
-    private function getQuestionTen()
-    {
-        $question = Question::getById(10);
-        $answers = $question->answers()->get();
-        
-         if($answers->isEmpty()){
-            return null;
-        }
-
-        $uniqueAnswer = $this->removeDupplicateValue($answers);
-
-        $stats = $this->getAnswerStats($uniqueAnswer, $question);
-
-
-        $response = [
-            "content" => $question->content,
-            "stats" => $stats,
-            "type" => "pie"
-        ];
-
-        return $response;
-    }
-    
-    /**
-     * questionElevenToFifteen
-     * Get all answer from question eleven to fifteen
-     * @return void
-     */
-    private function getQuestionElevenToFifteen()
+    private function getRadarStats()
     {
         $stats = [];
 
