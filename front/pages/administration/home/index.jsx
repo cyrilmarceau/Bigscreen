@@ -112,7 +112,7 @@ const AdminHomePage = () => {
         // Check if data is null
 
         if (isNil(charts)) {
-            return <Spin tip='Chargement...' size='large' />;
+            return <Spin style={{ margin: 'auto' }} tip='Chargement...' size='large' />;
         } else if (!isNil(charts) && !isEmpty(charts)) {
             return (
                 <>
