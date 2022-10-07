@@ -75,7 +75,7 @@ const ClientSurveyedFormPage = () => {
                             Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à votre investissement, nous vous préparons une
                             application toujours plus facile à utiliser, seul ou en famille. Si vous désirez consulter vos réponse ultérieurement,
                             vous pouvez consultez cette adresse:{' '}
-                            <a href={`http://localhost:3000/surveyed/${response.data.slug}`}>http://localhost:3000/surveyed/{response.data.slug}</a>
+                            <a href={`http://localhost:3000/surveyed/${response.data.slug}`} aria-label="Accéder au sondage">http://localhost:3000/surveyed/{response.data.slug}</a>
                         </p>
                     )
                 });

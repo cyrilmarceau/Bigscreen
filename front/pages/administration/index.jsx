@@ -66,7 +66,7 @@ const LoginPage = () => {
                             </Form.Item>
 
                             <Form.Item wrapperCol={{ span: 24 }}>
-                                <Button type='primary' htmlType='submit' loading={loading}>
+                                <Button type='primary' htmlType='submit' aria-label="Se connecter" loading={loading}>
                                     Se connecter
                                 </Button>
                             </Form.Item>

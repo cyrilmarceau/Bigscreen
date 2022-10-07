@@ -93,7 +93,7 @@ const SurveyedForm = ({ questions, submitSurveyed, submitFailed, loading }) => {
             ))}
 
             <Form.Item wrapperCol={{ span: 24 }}>
-                <Button className='surveyed-form-submit' type='primary' htmlType='submit' loading={loading}>
+                <Button className='surveyed-form-submit' type='primary' htmlType='submit' aria-label="Envoyer les réponses" loading={loading}>
                     Envoyer
                 </Button>
             </Form.Item>

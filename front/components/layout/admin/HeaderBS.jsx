@@ -44,12 +44,12 @@ const HeaderBS = () => {
             <Header className='site-layout-background' style={{ padding: 0 }}>
                 <Row justify='space-between header-inner-container'>
                     <Col md={12}>
-                        <div onClick={() => router.back()} className='header-inner-container-title' style={{ marginBottom: 0, cursor: 'pointer' }}>
+                        <div onClick={() => router.back()} className='header-inner-container-title' style={{ marginBottom: 0, cursor: 'pointer' }} aria-label="Retour en arrière">
                             <LeftOutlined />
                         </div>
                     </Col>
                     <Col md={12} flex='0'>
-                        <Button onClick={confirm} type='danger' shape='round' icon={<LogoutOutlined />} size='md'>
+                        <Button onClick={confirm} type='danger' shape='round' icon={<LogoutOutlined />} size='md' aria-label="Se déconnecter">
                             Se déconnecter
                         </Button>
                     </Col>
